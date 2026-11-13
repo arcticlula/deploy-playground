@@ -17,19 +17,22 @@ export interface Slide {
   name: string | Record<Lang, string>;
   /** Leave out for an ordinary slide. */
   layout?: 'blue-rock' | 'christmas';
+  /** Slug of the piece in src/data/products.ts: clicking the slide opens its page. Leave out for pieces not in the catalogue. */
+  product?: string;
 }
 
 export const slides: Slide[] = [
-  { id: 'blue-rock', name: 'Blue Rock', layout: 'blue-rock' },
+  { id: 'blue-rock', name: 'Blue Rock', layout: 'blue-rock', product: 'blue-rock-ring' },
   // Christmas message (seasonal): delete this line to take it down after the holidays.
-  { id: 'christmas', name: { pt: 'Mensagem de Natal', en: 'Christmas message' }, layout: 'christmas' },
+  // Only its photo (the Blue Rock in its case) is a link.
+  { id: 'christmas', name: { pt: 'Mensagem de Natal', en: 'Christmas message' }, layout: 'christmas', product: 'blue-rock-ring' },
   { id: 'cleopatra', name: 'Cleopatra' },
-  { id: 'green-rock', name: 'Green Rock' },
-  { id: 'black-rock', name: 'Black Rock' },
+  { id: 'green-rock', name: 'Green Rock', product: 'green-rock-ring' },
+  { id: 'black-rock', name: 'Black Rock', product: 'black-rock-ring' },
   { id: 'succulentus', name: 'Succulentus' },
   { id: 'bouquet', name: 'Bouquet' },
   { id: 'rosemary', name: 'Rosemary' },
-  { id: 'cat-brooch', name: 'Cat Brooch' },
+  { id: 'cat-brooch', name: 'Cat Brooch', product: 'cats-brooch' },
 ];
 
 export function slideName(slide: Slide, lang: Lang): string {

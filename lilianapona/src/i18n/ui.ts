@@ -96,6 +96,7 @@ const pt = {
   carousel: {
     previous: 'Anterior',
     next: 'Seguinte',
+    open: 'Ver a coleção {name}',
   },
 
   product: {
@@ -298,6 +299,7 @@ const en: Dictionary = {
   carousel: {
     previous: 'Previous',
     next: 'Next',
+    open: 'View the {name} collection',
   },
 
   product: {

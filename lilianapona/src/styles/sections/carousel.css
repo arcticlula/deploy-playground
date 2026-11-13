@@ -30,6 +30,21 @@
   display: grid;
   grid-template-columns: 50% 50%;
   background: #fff;
+  position: relative;
+}
+
+/* Slides of pieces in the catalogue open the piece's page: an invisible link over the slide
+   (over the photo only on the Christmas slide). The arrows stay on top of it. */
+.lp-split-slide-link {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.lp-split-slide-link:focus-visible {
+  outline: 2px solid var(--lp-gold);
+  outline-offset: -8px;
 }
 
 .lp-split-panel {

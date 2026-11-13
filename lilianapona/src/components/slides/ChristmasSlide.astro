@@ -18,9 +18,11 @@ import { useTranslations } from '../../i18n/ui';
 
 interface Props {
   lang: Lang;
+  /** Page the photo opens (the piece in the case), if any. */
+  link?: { href: string; label: string };
 }
 
-const { lang } = Astro.props;
+const { lang, link } = Astro.props;
 const t = useTranslations(lang);
 const message = christmasMessage[lang];
 ---
@@ -43,6 +45,7 @@ const message = christmasMessage[lang];
     sizes="(max-width: 767px) 91vw, 41vw"
     loading="lazy"
   />
+  {link && <a class="lp-split-slide-link" href={link.href} aria-label={link.label} />}
 </div>
 
 <div class="lp-split-panel lp-split-right lp-xmas-message">

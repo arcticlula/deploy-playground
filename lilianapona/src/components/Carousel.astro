@@ -4,8 +4,9 @@ import { Image } from 'astro:assets';
 import '../styles/sections/carousel.css';
 import BlueRockSlide from './slides/BlueRockSlide.astro';
 import ChristmasSlide from './slides/ChristmasSlide.astro';
-import { slideImages, slideName, slides } from '../data/carousel';
-import type { Lang } from '../i18n/routes';
+import { slideImages, slideName, slides, type Slide } from '../data/carousel';
+import { getProduct } from '../data/products';
+import { productPath, type Lang } from '../i18n/routes';
 import { useTranslations } from '../i18n/ui';
 
 interface Props {
@@ -17,6 +18,13 @@ const t = useTranslations(lang);
 
 const widths = [480, 720, 960, 1200];
 const sizes = '(max-width: 767px) 100vw, 50vw';
+
+/** Where clicking a slide goes: the page of its piece, when the piece is in the catalogue. */
+function slideLink(slide: Slide) {
+  if (!slide.product) return undefined;
+  const product = getProduct(slide.product);
+  return { href: productPath(product.slug, lang), label: t.carousel.open.replace('{name}', product.collection) };
+}
 ---
 
 <section class="lp-split-carousel" id="lpSplitCarousel" aria-roledescription="carousel" aria-label={t.titles.products}>
@@ -28,6 +36,7 @@ const sizes = '(max-width: 767px) 100vw, 50vw';
       slides.map((slide, i) => {
         const name = slideName(slide, lang);
         const first = i === 0;
+        const link = slideLink(slide);
         return (
           <div
             class={`lp-split-slide lp-split-slide--${slide.id}`}
@@ -35,11 +44,12 @@ const sizes = '(max-width: 767px) 100vw, 50vw';
             aria-roledescription="slide"
             aria-label={name}
             aria-hidden={first ? undefined : 'true'}
+            inert={!first}
           >
             {slide.layout === 'blue-rock' ? (
               <BlueRockSlide eager={first} />
             ) : slide.layout === 'christmas' ? (
-              <ChristmasSlide lang={lang} />
+              <ChristmasSlide lang={lang} link={link} />
             ) : (
               (() => {
                 const { left, right } = slideImages(slide.id);
@@ -56,6 +66,9 @@ const sizes = '(max-width: 767px) 100vw, 50vw';
                 );
               })()
             )}
+
+            {/* The whole slide opens the piece's page (the Christmas slide links its photo only, inside its component). */}
+            {link && slide.layout !== 'christmas' && <a class="lp-split-slide-link" href={link.href} aria-label={link.label} />}
           </div>
         );
       })
@@ -93,9 +106,12 @@ const sizes = '(max-width: 767px) 100vw, 50vw';
     const show = (next: number) => {
       index = (next + slides.length) % slides.length;
       track.style.transform = `translateX(-${index * 100}%)`;
+      // Slides out of view are hidden from screen readers and their links skipped by the Tab key.
       slides.forEach((slide, i) => {
-        if (i === index) slide.removeAttribute('aria-hidden');
-        else slide.setAttribute('aria-hidden', 'true');
+        const hidden = i !== index;
+        slide.inert = hidden;
+        if (hidden) slide.setAttribute('aria-hidden', 'true');
+        else slide.removeAttribute('aria-hidden');
       });
       // Images of slides that have not been seen yet load lazily: fetch the one coming into view now.
       slides[index].querySelectorAll('img').forEach((img) => (img.loading = 'eager'));
