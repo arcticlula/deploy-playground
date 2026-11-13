@@ -5,7 +5,7 @@ import '../styles/sections/footer.css';
 import Icon from './Icon.astro';
 import funding from '../assets/images/brand/funding-logos.png';
 import { site } from '../data/site';
-import { path, type Lang } from '../i18n/routes';
+import { path, withBase, type Lang } from '../i18n/routes';
 import { useTranslations } from '../i18n/ui';
 
 interface Props {
@@ -53,7 +53,7 @@ const year = new Date().getFullYear();
 
       <form
         class="lp-news-form"
-        action="/api/newsletter.php"
+        action={withBase('/api/newsletter.php')}
         method="post"
         data-ajax-form
         data-ok={t.footer.newsletterOk}

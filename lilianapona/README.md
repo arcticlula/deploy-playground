@@ -47,5 +47,13 @@ Views are made of sections in `src/components/`.
    `.htaccess` and `_astro/.htaccess`.
 3. Old WordPress addresses that no longer exist are redirected in `public/.htaccess`.
 
+### Preview copy (GitHub Pages)
+
+Every push to `main` that changes this folder publishes a preview at
+https://arcticlula.github.io/deploy-playground/lilianapona/ (workflow `.github/workflows/pages.yml` at the
+root of the repository). It is built with `SITE_URL` and `SITE_BASE` (see `astro.config.mjs`) so that every
+link works under that sub-path, and it tells search engines not to list it. The forms do not work there
+(GitHub Pages cannot run PHP).
+
 Not done yet: the server side of the two forms. The contact form posts to `/api/contact.php` and the newsletter
 form to `/api/newsletter.php`; until those PHP files exist on the server, both forms show their error message.

@@ -1,0 +1,67 @@
+# Publishes the Liliana Pona Jewellery site (folder lilianapona/) on GitHub Pages:
+#   https://arcticlula.github.io/deploy-playground/lilianapona/
+# Runs on every push to main that changes lilianapona/ (or this file), and by hand from the Actions tab.
+# The copy built here is marked "noindex", so search engines leave it alone; the real site is built
+# separately for lilianaponajewellery.pt (see lilianapona/README.md).
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lilianapona/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: lilianapona/package-lock.json
+
+      - name: Build the site for its GitHub Pages address
+        working-directory: lilianapona
+        env:
+          SITE_URL: https://arcticlula.github.io
+          SITE_BASE: /deploy-playground/lilianapona
+        run: |
+          npm ci
+          npm run build
+
+      - name: Lay out the published files
+        run: |
+          mkdir -p _pages/lilianapona
+          cp -R lilianapona/dist/. _pages/lilianapona/
+          # GitHub Pages only uses the 404 page at the root of the published files.
+          cp lilianapona/dist/404.html _pages/404.html
+          # The bare address of this repo's site opens the Liliana Pona site.
+          printf '%s\n' '<!doctype html><html lang="pt-PT"><meta charset="utf-8"><title>Liliana Pona Jewellery</title><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=lilianapona/"><a href="lilianapona/">Liliana Pona Jewellery</a></html>' > _pages/index.html
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}lilianapona/
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

@@ -50,10 +50,10 @@ Disponibilizamos o quadro das marcas da contrastaria de modelo oficial, emitido 
 [contrastaria.pt/informacao-consumidor](https://contrastaria.pt/informacao-consumidor/)
 
 <figure class="lp-legal-figure">
-  <a href="/legal/quadro-marcas-contrastaria.jpg" target="_blank" rel="noopener" title="Ver em tamanho real">
-    <img src="/legal/quadro-marcas-contrastaria-900.webp" srcset="/legal/quadro-marcas-contrastaria-900.webp 900w, /legal/quadro-marcas-contrastaria-1800.webp 1800w" sizes="(max-width: 1188px) calc(100vw - 48px), 1140px" width="1800" height="1273" loading="lazy" decoding="async" alt="Quadro oficial «Marcas legais da Contrastaria Portuguesa», com as marcas de contrastaria, de responsabilidade e comuns de controlo do ouro, da prata, da platina e do paládio">
+  <a href="../legal/quadro-marcas-contrastaria.jpg" target="_blank" rel="noopener" title="Ver em tamanho real">
+    <img src="../legal/quadro-marcas-contrastaria-900.webp" srcset="../legal/quadro-marcas-contrastaria-900.webp 900w, ../legal/quadro-marcas-contrastaria-1800.webp 1800w" sizes="(max-width: 1188px) calc(100vw - 48px), 1140px" width="1800" height="1273" loading="lazy" decoding="async" alt="Quadro oficial «Marcas legais da Contrastaria Portuguesa», com as marcas de contrastaria, de responsabilidade e comuns de controlo do ouro, da prata, da platina e do paládio">
   </a>
-  <figcaption>Quadro oficial das marcas de contraste, emitido pela INCM, em vigor desde 1 de janeiro de 2021. <a href="/legal/quadro-marcas-contrastaria.jpg" target="_blank" rel="noopener">Ver em tamanho real</a></figcaption>
+  <figcaption>Quadro oficial das marcas de contraste, emitido pela INCM, em vigor desde 1 de janeiro de 2021. <a href="../legal/quadro-marcas-contrastaria.jpg" target="_blank" rel="noopener">Ver em tamanho real</a></figcaption>
 </figure>
 
 ### Identificação do operador económico

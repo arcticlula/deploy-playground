@@ -13,7 +13,7 @@ import PageHeader from '../components/PageHeader.astro';
 import SearchOverlay from '../components/SearchOverlay.astro';
 import defaultShareImage from '../assets/images/home/hero-model.png';
 import { site } from '../data/site';
-import { defaultLang, htmlLang, languages, pagePath, type Lang, type PageRef } from '../i18n/routes';
+import { base, defaultLang, htmlLang, languages, pagePath, withBase, type Lang, type PageRef } from '../i18n/routes';
 import { useTranslations } from '../i18n/ui';
 
 interface Props {
@@ -38,6 +38,9 @@ const t = useTranslations(lang);
 const origin = Astro.site ?? new URL(site.url);
 const absolute = (path: string) => new URL(path, origin).href;
 
+// A copy built for another address (a preview, see astro.config.mjs) must not compete with the real site in search results.
+const isPreview = base !== '';
+
 const fullTitle = title ? `${title} – ${site.name}` : site.name;
 const metaDescription = description ?? t.meta.defaultDescription;
 const canonical = page ? absolute(pagePath(page, lang)) : undefined;
@@ -51,7 +54,7 @@ const share = await getImage({ src: shareImage, width: Math.min(1200, shareImage
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {(noindex || isPreview) && <meta name="robots" content="noindex" />}
 
     {canonical && <link rel="canonical" href={canonical} />}
     {
@@ -69,9 +72,9 @@ const share = await getImage({ src: shareImage, width: Math.min(1200, shareImage
     <meta property="og:image" content={absolute(share.src)} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="icon" href="/favicon-32.png" sizes="32x32" />
-    <link rel="icon" href="/favicon-192.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href={withBase('/favicon-32.png')} sizes="32x32" />
+    <link rel="icon" href={withBase('/favicon-192.png')} sizes="192x192" />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <meta name="theme-color" content="#ffffff" />
   </head>
 

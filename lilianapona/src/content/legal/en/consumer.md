@@ -50,10 +50,10 @@ We provide the official table of assay office marks issued by INCM, as well as o
 [contrastaria.pt/en/consumer-information](https://contrastaria.pt/en/consumer-information/)
 
 <figure class="lp-legal-figure">
-  <a href="/legal/quadro-marcas-contrastaria.jpg" target="_blank" rel="noopener" title="View full size">
-    <img src="/legal/quadro-marcas-contrastaria-900.webp" srcset="/legal/quadro-marcas-contrastaria-900.webp 900w, /legal/quadro-marcas-contrastaria-1800.webp 1800w" sizes="(max-width: 1188px) calc(100vw - 48px), 1140px" width="1800" height="1273" loading="lazy" decoding="async" alt="Official table “Marcas legais da Contrastaria Portuguesa” (legal hallmarks of the Portuguese assay office), showing the assay office, responsibility and common control marks for gold, silver, platinum and palladium">
+  <a href="../../legal/quadro-marcas-contrastaria.jpg" target="_blank" rel="noopener" title="View full size">
+    <img src="../../legal/quadro-marcas-contrastaria-900.webp" srcset="../../legal/quadro-marcas-contrastaria-900.webp 900w, ../../legal/quadro-marcas-contrastaria-1800.webp 1800w" sizes="(max-width: 1188px) calc(100vw - 48px), 1140px" width="1800" height="1273" loading="lazy" decoding="async" alt="Official table “Marcas legais da Contrastaria Portuguesa” (legal hallmarks of the Portuguese assay office), showing the assay office, responsibility and common control marks for gold, silver, platinum and palladium">
   </a>
-  <figcaption>Official table of Portuguese hallmarks issued by INCM, in force since 1 January 2021 (in Portuguese). <a href="/legal/quadro-marcas-contrastaria.jpg" target="_blank" rel="noopener">View full size</a></figcaption>
+  <figcaption>Official table of Portuguese hallmarks issued by INCM, in force since 1 January 2021 (in Portuguese). <a href="../../legal/quadro-marcas-contrastaria.jpg" target="_blank" rel="noopener">View full size</a></figcaption>
 </figure>
 
 ### Business details

@@ -7,7 +7,7 @@
  * write a view, and add the pair to `views` below.
  */
 import { products } from '../data/products';
-import { languages, legalDocs, productPath, routes, type LegalDoc, type Lang, type RouteKey } from '../i18n/routes';
+import { languages, legalDocs, productRoute, routes, type LegalDoc, type Lang, type RouteKey } from '../i18n/routes';
 import AboutView from '../views/AboutView.astro';
 import CartView from '../views/CartView.astro';
 import CollectionsView from '../views/CollectionsView.astro';
@@ -30,7 +30,7 @@ export function getStaticPaths() {
       props: { lang, route } satisfies Props,
     })),
     ...products.map((product) => ({
-      params: { path: param(productPath(product.slug, lang)) },
+      params: { path: param(productRoute(product.slug, lang)) },
       props: { lang, product: product.slug } satisfies Props,
     })),
   ]);

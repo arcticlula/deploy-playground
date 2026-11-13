@@ -39,12 +39,31 @@ export const mainNav = ['home', 'about', 'products', 'collections', 'contact'] a
 
 const productBase: Record<Lang, string> = { pt: '/produto/', en: '/en/product/' };
 
-export function path(key: RouteKey, lang: Lang): string {
-  return routes[key][lang];
+/**
+ * Where the site lives: "" at the root of its domain (the real site), or a sub-path such as
+ * "/deploy-playground/lilianapona" for a preview copy (set with SITE_BASE, see astro.config.mjs).
+ * The addresses above never include it; links made with the functions below do.
+ */
+export const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/** Puts the site's sub-path, if any, in front of an address that starts with "/". */
+export function withBase(address: string): string {
+  return `${base}${address}`;
 }
 
-export function productPath(slug: string, lang: Lang): string {
+/** Link to a page. */
+export function path(key: RouteKey, lang: Lang): string {
+  return withBase(routes[key][lang]);
+}
+
+/** Address of a product page without the sub-path: names the generated page. Links use productPath(). */
+export function productRoute(slug: string, lang: Lang): string {
   return `${productBase[lang]}${slug}/`;
+}
+
+/** Link to a product page. */
+export function productPath(slug: string, lang: Lang): string {
+  return withBase(productRoute(slug, lang));
 }
 
 /** A page is identified either by a route key or by a product slug. */

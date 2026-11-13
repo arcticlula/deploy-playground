@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import '../styles/sections/contact.css';
 import logo from '../assets/images/brand/logo-white.png';
 import { site } from '../data/site';
-import { path, type Lang } from '../i18n/routes';
+import { path, withBase, type Lang } from '../i18n/routes';
 import { useTranslations } from '../i18n/ui';
 
 interface Props {
@@ -44,7 +44,7 @@ const privacyUrl = path('privacy', lang);
       <h2 class="lp-form-title">{t.formTitle}</h2>
 
       <form
-        action="/api/contact.php"
+        action={withBase('/api/contact.php')}
         method="post"
         data-ajax-form
         data-ok={t.ok}

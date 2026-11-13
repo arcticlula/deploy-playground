@@ -7,7 +7,7 @@
 import type { APIRoute } from 'astro';
 import { products } from '../data/products';
 import { site } from '../data/site';
-import { defaultLang, htmlLang, languages, productPath, routes, type Lang, type RouteKey } from '../i18n/routes';
+import { defaultLang, htmlLang, languages, path, productPath, routes, type Lang, type RouteKey } from '../i18n/routes';
 
 const leaveOut: RouteKey[] = ['cart', 'wishlist'];
 
@@ -16,11 +16,14 @@ export const GET: APIRoute = ({ site: astroSite }) => {
   const absolute = (path: string) => new URL(path, origin).href;
 
   // Each entry: the address of one page in every language.
+  const inEveryLanguage = (address: (lang: Lang) => string) =>
+    Object.fromEntries(languages.map((lang) => [lang, address(lang)])) as Record<Lang, string>;
+
   const pages: Record<Lang, string>[] = [
-    ...(Object.keys(routes) as RouteKey[]).filter((key) => !leaveOut.includes(key)).map((key) => routes[key]),
-    ...products.map(
-      (product) => Object.fromEntries(languages.map((lang) => [lang, productPath(product.slug, lang)])) as Record<Lang, string>,
-    ),
+    ...(Object.keys(routes) as RouteKey[])
+      .filter((key) => !leaveOut.includes(key))
+      .map((key) => inEveryLanguage((lang) => path(key, lang))),
+    ...products.map((product) => inEveryLanguage((lang) => productPath(product.slug, lang))),
   ];
 
   const entries = pages.flatMap((page) =>

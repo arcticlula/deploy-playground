@@ -1,7 +1,8 @@
 ---
 /**
  * "Page not found". Apache serves this file for any address that does not exist (see public/.htaccess).
- * It is written in Portuguese and switches its text to English when the address starts with /en/.
+ * It is written in Portuguese and switches its text to English when the address starts with /en/
+ * (after the site's sub-path, if it has one).
  */
 import Base from '../layouts/Base.astro';
 import '../styles/sections/not-found.css';
@@ -27,8 +28,8 @@ const en = useTranslations('en').notFound;
     </div>
   </section>
 
-  <script is:inline>
-    if (location.pathname.startsWith('/en/')) {
+  <script is:inline define:vars={{ englishStart: path('home', 'en') }}>
+    if (location.pathname.startsWith(englishStart)) {
       document.querySelector('[data-not-found="pt"]').hidden = true;
       document.querySelector('[data-not-found="en"]').hidden = false;
       document.documentElement.lang = 'en-GB';
