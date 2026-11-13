@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Collections from '../components/Collections.astro';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base lang={lang} page={{ route: 'collections' }} title={t.titles.collections}>
+  <Collections lang={lang} />
+</Base>

@@ -1,0 +1,33 @@
+---
+/**
+ * Heart that saves a product to the visitor's wishlist.
+ * The wishlist lives in the visitor's browser (see src/scripts/wishlist.ts): no account needed.
+ */
+import Icon from './Icon.astro';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  slug: string;
+  lang: Lang;
+}
+
+const { slug, lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button
+  type="button"
+  class="lp-heart"
+  data-wishlist={slug}
+  data-label-add={t.product.addToWishlist}
+  data-label-remove={t.product.removeFromWishlist}
+  aria-pressed="false"
+  aria-label={t.product.addToWishlist}
+>
+  <Icon name="heart" />
+</button>
+
+<script>
+  import '../scripts/wishlist';
+</script>

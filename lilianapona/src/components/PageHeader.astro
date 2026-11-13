@@ -1,0 +1,41 @@
+---
+/** Header of every page except the home page: burger left, logo centre, icons right. */
+import { Image } from 'astro:assets';
+import '../styles/sections/header-page.css';
+import HeaderActions from './HeaderActions.astro';
+import logo from '../assets/images/brand/logo-header.png';
+import { site } from '../data/site';
+import { path, type Lang, type PageRef } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  page?: PageRef;
+}
+
+const { lang, page } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<header class="lp-page-header">
+  <button
+    type="button"
+    class="lp-page-burger"
+    data-menu-open
+    aria-controls="lpMenuPanel"
+    aria-expanded="false"
+    aria-label={t.header.openMenu}
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <a href={path('home', lang)} aria-label={site.name}>
+    <Image class="lp-page-logo" src={logo} alt={site.name} width={142} densities={[1, 2, 3]} loading="eager" />
+  </a>
+
+  <div class="lp-page-actions">
+    <HeaderActions variant="page" lang={lang} page={page} />
+  </div>
+</header>

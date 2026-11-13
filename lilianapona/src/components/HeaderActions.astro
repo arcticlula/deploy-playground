@@ -1,0 +1,54 @@
+---
+/**
+ * Language switch + search, wishlist and cart icons.
+ * Shared by the two headers: `variant` picks the class prefix (lp-home-* or lp-page-*).
+ */
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import { htmlLang, langLabel, languages, pagePath, path, type Lang, type PageRef } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  variant: 'home' | 'page';
+  lang: Lang;
+  /** The page being shown, so the language switch can link to its translation. */
+  page?: PageRef;
+}
+
+const { variant, lang, page } = Astro.props;
+const t = useTranslations(lang);
+const c = `lp-${variant}`;
+---
+
+<div class={`${c}-lang`} role="group" aria-label={t.header.language}>
+  {
+    languages.map((l) => (
+      <a
+        href={page ? pagePath(page, l) : path('home', l)}
+        class:list={[{ 'lp-active': l === lang }]}
+        lang={htmlLang[l]}
+        hreflang={htmlLang[l]}
+        aria-current={l === lang ? 'true' : undefined}
+      >
+        {langLabel[l]}
+      </a>
+    ))
+  }
+</div>
+
+<button type="button" class={`${c}-search lp-search-trigger`} data-search-open aria-label={t.header.search}>
+  <Icon name="search" />
+</button>
+
+<a href={path('wishlist', lang)} aria-label={t.header.wishlist} class={`${c}-wishlist`}>
+  <Icon name="wishlist" />
+</a>
+
+{
+  site.features.cart && (
+    <a href={path('cart', lang)} aria-label={t.header.cart} class={`${c}-cart`}>
+      <Icon name="cart" />
+      <span>0</span>
+    </a>
+  )
+}

@@ -1,0 +1,41 @@
+---
+/** "Ofereça joias" block with the gift box, shown at the bottom of the home and contact pages. */
+import { Image } from 'astro:assets';
+import '../styles/sections/cta.css';
+import logo from '../assets/images/brand/logo-stacked.png';
+import box from '../assets/images/home/gift-box.png';
+import { site } from '../data/site';
+import { path, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="lp-final-cta">
+  <div class="lp-final-cta-inner">
+    <div class="lp-final-cta-left">
+      <p>
+        {
+          t.cta.lines.map((line, i) => (
+            <>
+              {i > 0 && <br />}
+              {line}
+            </>
+          ))
+        }
+      </p>
+
+      <h2>{t.cta.heading}</h2>
+      <a href={path('collections', lang)}>{t.cta.link}</a>
+
+      <Image class="lp-final-cta-logo" src={logo} alt={site.name} width={265} densities={[1, 2]} />
+    </div>
+
+    <Image class="lp-final-cta-box" src={box} alt={t.cta.boxAlt} quality={90} />
+  </div>
+</section>

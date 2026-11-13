@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactSection from '../components/ContactSection.astro';
+import FinalCta from '../components/FinalCta.astro';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base lang={lang} page={{ route: 'contact' }} title={t.titles.contact}>
+  <ContactSection lang={lang} />
+  <FinalCta lang={lang} />
+</Base>

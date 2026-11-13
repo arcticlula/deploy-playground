@@ -1,0 +1,73 @@
+---
+/**
+ * Collections page: the product cards, in the order of src/data/products.ts.
+ * Desktop and tablet show three cards at a time; the arrows either side move along one card
+ * (they hide themselves when every card fits). Phones show the cards one under the other.
+ */
+import '../styles/sections/collections.css';
+import ProductCard from './ProductCard.astro';
+import { products } from '../data/products';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="lp-collection-page lp-collection-slider" data-collection-slider>
+  <h1 class="lp-sr-only">{t.titles.collections}</h1>
+  <div class="lp-collection-topband"></div>
+
+  <button
+    class="lp-collection-arrow lp-collection-arrow-left"
+    type="button"
+    aria-label={t.carousel.previous}
+    aria-controls="lpCollectionTrack"
+    data-collection-prev
+  ></button>
+  <button
+    class="lp-collection-arrow lp-collection-arrow-right"
+    type="button"
+    aria-label={t.carousel.next}
+    aria-controls="lpCollectionTrack"
+    data-collection-next
+  ></button>
+
+  <div class="lp-collection-grid lp-collection-track" id="lpCollectionTrack">
+    {products.map((product) => <ProductCard product={product} lang={lang} level={2} eager />)}
+  </div>
+</section>
+
+<script>
+  const slider = document.querySelector<HTMLElement>('[data-collection-slider]');
+  const track = slider?.querySelector<HTMLElement>('.lp-collection-track');
+  const prev = slider?.querySelector<HTMLButtonElement>('[data-collection-prev]');
+  const next = slider?.querySelector<HTMLButtonElement>('[data-collection-next]');
+
+  if (slider && track && prev && next) {
+    // One card plus the gap after it.
+    const step = () => {
+      const card = track.firstElementChild as HTMLElement | null;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return (card?.getBoundingClientRect().width ?? track.clientWidth) + gap;
+    };
+
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const scrollable = max > 2;
+      prev.hidden = next.hidden = !scrollable;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max - 2;
+    };
+
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+</script>

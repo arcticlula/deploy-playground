@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductDetail from '../components/ProductDetail.astro';
+import { getProduct, productImages } from '../data/products';
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  /** Product slug, e.g. "green-rock-ring". */
+  product: string;
+}
+
+const { lang, product: slug } = Astro.props;
+const product = getProduct(slug);
+const [photo] = productImages(slug);
+---
+
+<Base
+  lang={lang}
+  page={{ product: slug }}
+  title={product.name}
+  description={product.text[lang].description[0]}
+  shareImage={photo}
+>
+  <ProductDetail product={product} lang={lang} />
+</Base>

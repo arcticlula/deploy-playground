@@ -1,0 +1,139 @@
+---
+/** Full-width carousel of the Products page: two panels per slide, arrows left and right. */
+import { Image } from 'astro:assets';
+import '../styles/sections/carousel.css';
+import BlueRockSlide from './slides/BlueRockSlide.astro';
+import ChristmasSlide from './slides/ChristmasSlide.astro';
+import { slideImages, slideName, slides } from '../data/carousel';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const widths = [480, 720, 960, 1200];
+const sizes = '(max-width: 767px) 100vw, 50vw';
+---
+
+<section class="lp-split-carousel" id="lpSplitCarousel" aria-roledescription="carousel" aria-label={t.titles.products}>
+  <h1 class="lp-sr-only">{t.titles.products}</h1>
+  <div class="lp-split-topband"></div>
+
+  <div class="lp-split-track">
+    {
+      slides.map((slide, i) => {
+        const name = slideName(slide, lang);
+        const first = i === 0;
+        return (
+          <div
+            class={`lp-split-slide lp-split-slide--${slide.id}`}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={name}
+            aria-hidden={first ? undefined : 'true'}
+          >
+            {slide.layout === 'blue-rock' ? (
+              <BlueRockSlide eager={first} />
+            ) : slide.layout === 'christmas' ? (
+              <ChristmasSlide lang={lang} />
+            ) : (
+              (() => {
+                const { left, right } = slideImages(slide.id);
+                const loading = first ? 'eager' : 'lazy';
+                return (
+                  <>
+                    <div class="lp-split-panel lp-split-left">
+                      <Image src={left} alt={name} widths={widths} sizes={sizes} loading={loading} priority={first} />
+                    </div>
+                    <div class="lp-split-panel lp-split-right">
+                      <Image src={right} alt="" widths={widths} sizes={sizes} loading={loading} />
+                    </div>
+                  </>
+                );
+              })()
+            )}
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <button class="lp-split-arrow lp-split-prev" type="button" aria-label={t.carousel.previous}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M16 3L7 12L16 21"></path>
+    </svg>
+  </button>
+
+  <button class="lp-split-arrow lp-split-next" type="button" aria-label={t.carousel.next}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M8 3L17 12L8 21"></path>
+    </svg>
+  </button>
+</section>
+
+<script>
+  const carousel = document.querySelector<HTMLElement>('#lpSplitCarousel');
+  const track = carousel?.querySelector<HTMLElement>('.lp-split-track');
+  const slides = carousel?.querySelectorAll<HTMLElement>('.lp-split-slide');
+
+  if (carousel && track && slides && slides.length > 0) {
+    let index = 0;
+    const phone = window.matchMedia('(max-width: 767px)');
+
+    // On phones the panels stack and slides differ in height (the Christmas text is long):
+    // the carousel takes the height of the slide on show. Wider screens: all slides are the same height.
+    const fitHeight = () => {
+      track.style.height = phone.matches ? `${slides[index].offsetHeight}px` : '';
+    };
+
+    const show = (next: number) => {
+      index = (next + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      slides.forEach((slide, i) => {
+        if (i === index) slide.removeAttribute('aria-hidden');
+        else slide.setAttribute('aria-hidden', 'true');
+      });
+      // Images of slides that have not been seen yet load lazily: fetch the one coming into view now.
+      slides[index].querySelectorAll('img').forEach((img) => (img.loading = 'eager'));
+      fitHeight();
+    };
+
+    carousel.querySelector('.lp-split-next')?.addEventListener('click', () => show(index + 1));
+    carousel.querySelector('.lp-split-prev')?.addEventListener('click', () => show(index - 1));
+
+    carousel.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') show(index + 1);
+      if (event.key === 'ArrowLeft') show(index - 1);
+    });
+
+    // Swipe left / right on touch screens.
+    let startX = 0;
+    let startY = 0;
+    carousel.addEventListener(
+      'touchstart',
+      (event) => {
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+      },
+      { passive: true },
+    );
+    carousel.addEventListener(
+      'touchend',
+      (event) => {
+        const dx = event.changedTouches[0].clientX - startX;
+        const dy = event.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1));
+      },
+      { passive: true },
+    );
+
+    window.addEventListener('resize', fitHeight);
+    phone.addEventListener('change', fitHeight);
+    carousel.querySelectorAll('img').forEach((img) => img.addEventListener('load', fitHeight));
+    fitHeight();
+  }
+</script>

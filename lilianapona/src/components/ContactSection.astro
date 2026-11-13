@@ -1,0 +1,101 @@
+---
+/** Contact page: logo, the two contacts and the message form. */
+import { Image } from 'astro:assets';
+import '../styles/sections/contact.css';
+import logo from '../assets/images/brand/logo-white.png';
+import { site } from '../data/site';
+import { path, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang).contact;
+const privacyUrl = path('privacy', lang);
+---
+
+<section class="lp-contactos-section">
+  <div class="lp-contactos-wrap">
+    <div class="lp-contactos-info">
+      <Image class="lp-contactos-logo" src={logo} alt={site.name} width={265} densities={[1, 2]} loading="eager" />
+
+      <div class="lp-contactos-texto">
+        <h1>{t.title}</h1>
+
+        {
+          site.contacts.map((contact) => (
+            <p>
+              <strong>e:</strong> <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              <br />
+              <strong>t:</strong> <a href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`}>{contact.phone}</a>
+              <br />
+              <span>{t.mobileNote}</span>
+            </p>
+          ))
+        }
+
+        <p>{site.url.replace('https://', 'www.')}</p>
+      </div>
+    </div>
+
+    <div class="lp-contactos-form">
+      <h2 class="lp-form-title">{t.formTitle}</h2>
+
+      <form
+        action="/api/contact.php"
+        method="post"
+        data-ajax-form
+        data-ok={t.ok}
+        data-error={t.error}
+        data-invalid={t.invalid}
+        data-sending={t.sending}
+      >
+        <input type="hidden" name="lang" value={lang} />
+        {/* Trap for spam robots: people never see or fill this field. */}
+        <div class="lp-form-trap" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <div class="lp-field">
+          <label class="lp-sr-only" for="lpContactName">{t.name}</label>
+          <input id="lpContactName" type="text" name="name" placeholder={t.namePlaceholder} maxlength="400" autocomplete="name" required />
+        </div>
+
+        <div class="lp-field">
+          <label class="lp-sr-only" for="lpContactPhone">{t.phone}</label>
+          <input id="lpContactPhone" type="tel" name="phone" placeholder={t.phonePlaceholder} maxlength="40" autocomplete="tel" required />
+        </div>
+
+        <div class="lp-field">
+          <label class="lp-sr-only" for="lpContactEmail">{t.email}</label>
+          <input id="lpContactEmail" type="email" name="email" placeholder={t.emailPlaceholder} maxlength="400" autocomplete="email" required />
+        </div>
+
+        <div class="lp-field">
+          <label class="lp-sr-only" for="lpContactSubject">{t.subject}</label>
+          <input id="lpContactSubject" type="text" name="subject" placeholder={t.subjectPlaceholder} maxlength="400" />
+        </div>
+
+        <div class="lp-field">
+          <label class="lp-sr-only" for="lpContactMessage">{t.message}</label>
+          <textarea id="lpContactMessage" name="message" placeholder={t.messagePlaceholder} maxlength="2000" rows="10" required></textarea>
+        </div>
+
+        <div class="lp-field-check">
+          <label>
+            <input type="checkbox" name="privacy" value="1" required />
+            <span set:html={t.privacyHtml.replace('{url}', privacyUrl)} />
+          </label>
+        </div>
+
+        <div class="lp-field-submit">
+          <button type="submit">{t.submit}</button>
+        </div>
+
+        <div class="lp-form-message" data-form-message role="status" aria-live="polite" hidden></div>
+      </form>
+    </div>
+  </div>
+</section>

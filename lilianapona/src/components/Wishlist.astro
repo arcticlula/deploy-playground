@@ -1,0 +1,49 @@
+---
+/**
+ * Wishlist page. Every product card is in the page but hidden: the script in
+ * src/scripts/wishlist.ts shows the ones this visitor saved (kept in their browser).
+ */
+import '../styles/sections/collections.css';
+import '../styles/sections/wishlist.css';
+import ProductCard from './ProductCard.astro';
+import { products } from '../data/products';
+import { path, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="lp-collection-page lp-wishlist-page">
+  <div class="lp-collection-topband"></div>
+
+  <h1 class="lp-wishlist-title">
+    <span>{t.wishlist.title}</span>
+    <strong data-wishlist-count>0</strong>
+  </h1>
+
+  <div class="lp-collection-grid">
+    {products.map((product) => <ProductCard product={product} lang={lang} level={2} data-wishlist-item={product.slug} hidden />)}
+  </div>
+
+  <div class="lp-wishlist-empty" data-wishlist-empty>
+    <p>{t.wishlist.empty}</p>
+    <p class="lp-wishlist-hint">{t.wishlist.hint}</p>
+    <a href={path('collections', lang)}>{t.wishlist.discover}</a>
+  </div>
+
+  <noscript>
+    <style>
+      .lp-wishlist-page [data-wishlist-item][hidden] {
+        display: block !important;
+      }
+      .lp-wishlist-empty {
+        display: none !important;
+      }
+    </style>
+  </noscript>
+</section>

@@ -1,0 +1,69 @@
+---
+/** One product card: photo with hand-lettering, name, materials, price and wishlist heart. */
+import { Image } from 'astro:assets';
+import HeartButton from './HeartButton.astro';
+import { cardImages, formatPrice, type Product } from '../data/products';
+import { productPath, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  product: Product;
+  lang: Lang;
+  /** Heading level of the product name: 2 or 3, depending on the page. */
+  level?: 2 | 3;
+  /** Load the photo straight away (cards visible without scrolling). */
+  eager?: boolean;
+  /** Extra attributes for the card element (the wishlist page hides cards and tags them). */
+  hidden?: boolean;
+  [key: `data-${string}`]: unknown;
+}
+
+const { product, lang, level = 3, eager = false, ...rest } = Astro.props;
+const t = useTranslations(lang);
+const text = product.text[lang];
+const url = productPath(product.slug, lang);
+const { photo, lettering } = cardImages(product.slug);
+const [firstWord, ...otherWords] = product.name.split(' ');
+const Heading = `h${level}` as 'h2' | 'h3';
+---
+
+<article class={`lp-collection-card lp-collection-card-${product.card}`} {...rest}>
+  <a class="lp-collection-image-link" href={url}>
+    <Image
+      class="lp-collection-bg"
+      src={photo}
+      alt={product.name}
+      widths={[450, 720, 900, 1200]}
+      sizes="(max-width: 767px) 100vw, 33vw"
+      loading={eager ? 'eager' : 'lazy'}
+    />
+    {
+      lettering && (
+        <Image
+          class="lp-collection-letters"
+          src={lettering}
+          alt=""
+          widths={[330, 660, 990]}
+          sizes="(max-width: 767px) 72vw, 24vw"
+          loading={eager ? 'eager' : 'lazy'}
+        />
+      )
+    }
+  </a>
+
+  <div class="lp-collection-info">
+    <Heading class="lp-collection-title">
+      <a href={url}>
+        <strong>{firstWord}</strong>{otherWords.length > 0 && ` ${otherWords.join(' ')}`}
+      </a>
+    </Heading>
+
+    {text.cardLines.map((line) => <p class="lp-collection-material">{line}</p>)}
+
+    <p class="lp-collection-price">{formatPrice(product.price) ?? t.product.priceOnRequest}</p>
+
+    <div class="lp-collection-wishlist-wrap">
+      <HeartButton slug={product.slug} lang={lang} />
+    </div>
+  </div>
+</article>

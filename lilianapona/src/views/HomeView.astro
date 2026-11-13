@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import FinalCta from '../components/FinalCta.astro';
+import Hero from '../components/Hero.astro';
+import type { Lang } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Base lang={lang} page={{ route: 'home' }} header="home">
+  <Hero lang={lang} />
+  <FinalCta lang={lang} />
+</Base>

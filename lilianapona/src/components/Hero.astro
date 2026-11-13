@@ -1,0 +1,59 @@
+---
+/**
+ * Home page hero: model photo, vertical menu (desktop), logo and handwritten tagline.
+ *
+ * Desktop and tablet: the whole photo is shown and the logo and tagline sit on its plain left side,
+ * placed in percentages of the photo (as in the client's mock-up "Home page.png"), so they stay on
+ * the same spot of the picture at every screen width.
+ * Phones: the photo is cropped to the model and the logo and tagline go in a band underneath,
+ * because a narrow crop leaves no plain background to put them on.
+ * If the photo is replaced, check the positions in hero.css.
+ */
+import { Image } from 'astro:assets';
+import '../styles/sections/hero.css';
+import model from '../assets/images/home/hero-model.png';
+import logo from '../assets/images/brand/logo-stacked.png';
+import tagline from '../assets/images/home/handmade-just-for-you.png';
+import { site } from '../data/site';
+import { mainNav, path, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="lp-hero-wrap">
+  <h1 class="lp-sr-only">{site.name}</h1>
+
+  <div class="lp-hero-bg">
+    <Image src={model} alt="" widths={[780, 1200, 1701]} sizes="(max-width: 767px) 300vw, 100vw" quality={88} priority />
+  </div>
+
+  <nav class="lp-hero-nav" aria-label={t.header.menu}>
+    {mainNav.map((key) => <a href={path(key, lang)}>{t.nav[key]}</a>)}
+  </nav>
+
+  <div class="lp-hero-brand">
+    <Image
+      class="lp-hero-logo"
+      src={logo}
+      alt={site.name}
+      widths={[220, 440, 660]}
+      sizes="(max-width: 767px) 190px, 26vw"
+      loading="eager"
+    />
+
+    <Image
+      class="lp-hero-tagline"
+      src={tagline}
+      alt={t.hero.taglineAlt}
+      widths={[660, 1100, 1740]}
+      sizes="(max-width: 767px) 340px, 73vw"
+      loading="eager"
+    />
+  </div>
+</section>

@@ -1,0 +1,323 @@
+/* Collections page (and the wishlist page, which reuses the cards and the grid). */
+
+.lp-collection-page {
+  --lp-collection-gap: 18px;
+  width: 100%;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  padding: 0 36px 18px;
+}
+
+.lp-collection-topband {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  height: 54px;
+  background: rgba(0, 0, 0, 0.10);
+  pointer-events: none;
+}
+
+.lp-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--lp-collection-gap);
+  width: 100%;
+  position: relative;
+  z-index: 5;
+}
+
+/* Collections page only: one row, three cards in view, the rest reached with the arrows (or a swipe). */
+.lp-collection-track {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 2 * var(--lp-collection-gap)) / 3);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.lp-collection-track::-webkit-scrollbar {
+  display: none;
+}
+
+.lp-collection-track > .lp-collection-card {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-collection-track {
+    scroll-behavior: smooth;
+  }
+}
+
+.lp-collection-card {
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+
+.lp-collection-image-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 8 / 9;
+  overflow: hidden;
+  background: #fff;
+  text-decoration: none;
+}
+
+.lp-collection-bg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.lp-collection-letters {
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+  display: block;
+  height: auto;
+}
+
+.lp-collection-card-cat .lp-collection-letters {
+  width: 47%;
+  left: 50%;
+  top: 11%;
+  transform: translateX(-50%);
+}
+
+.lp-collection-card-green .lp-collection-letters {
+  width: 72%;
+  left: 50%;
+  bottom: 2.5%;
+  transform: translateX(-50%);
+}
+
+.lp-collection-card-black .lp-collection-letters {
+  width: 72%;
+  left: 50%;
+  bottom: 2.5%;
+  transform: translateX(-50%);
+}
+
+/* Same place as the other rings; the faint shadow keeps it readable over the pale hand. */
+.lp-collection-card-blue .lp-collection-letters {
+  width: 72%;
+  left: 50%;
+  bottom: 2.5%;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 0 2px rgba(40, 28, 18, 0.4));
+}
+
+.lp-collection-info {
+  position: relative;
+  padding: 9px 34px 0 0;
+  color: #111;
+  font-size: 13px;
+  line-height: 1.26;
+}
+
+.lp-collection-title {
+  margin: 0 0 2px;
+  color: #111;
+  font-size: 14px;
+  line-height: 1.1;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.lp-collection-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lp-collection-title strong {
+  font-weight: 700;
+}
+
+.lp-collection-material,
+.lp-collection-price {
+  margin: 0;
+  color: #111;
+  font-size: 13px;
+  line-height: 1.28;
+  font-weight: 400;
+}
+
+/* Wishlist heart */
+.lp-collection-wishlist-wrap {
+  position: absolute;
+  right: 0;
+  top: 7px;
+  z-index: 20;
+  width: 20px;
+  height: 20px;
+}
+
+.lp-collection-wishlist-wrap .lp-heart {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.lp-collection-wishlist-wrap .lp-heart svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  stroke: #111;
+  stroke-width: 1.35;
+  fill: none;
+}
+
+.lp-collection-wishlist-wrap .lp-heart[aria-pressed="true"] svg {
+  fill: #111;
+}
+
+/* Arrows either side of the cards, pointing inwards: they move the row along one card. */
+.lp-collection-arrow {
+  position: absolute;
+  top: 39.5%;
+  z-index: 40;
+  width: 42px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity 0.25s ease;
+}
+
+.lp-collection-arrow[hidden] {
+  display: none;
+}
+
+.lp-collection-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.lp-collection-arrow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 31px;
+  height: 31px;
+  border-top: 3px solid #c2b59b;
+  border-right: 3px solid #c2b59b;
+}
+
+.lp-collection-arrow-left {
+  left: 0;
+}
+
+.lp-collection-arrow-left::before {
+  left: 4px;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.lp-collection-arrow-right {
+  right: 0;
+}
+
+.lp-collection-arrow-right::before {
+  right: 4px;
+  transform: translateY(-50%) rotate(-135deg);
+}
+
+@media (max-width: 1024px) {
+  .lp-collection-page {
+    padding: 0 26px 18px;
+  }
+
+  .lp-collection-page {
+    --lp-collection-gap: 16px;
+  }
+
+  .lp-collection-topband {
+    height: 48px;
+  }
+
+  .lp-collection-title {
+    font-size: 13px;
+  }
+
+  .lp-collection-material,
+  .lp-collection-price {
+    font-size: 12px;
+  }
+
+  .lp-collection-arrow {
+    top: 38%;
+  }
+
+  .lp-collection-card-blue .lp-collection-letters,
+  .lp-collection-card-green .lp-collection-letters,
+  .lp-collection-card-black .lp-collection-letters {
+    width: 76%;
+  }
+}
+
+@media (max-width: 767px) {
+  .lp-collection-page {
+    padding: 0 16px 22px;
+  }
+
+  .lp-collection-page {
+    --lp-collection-gap: 26px;
+  }
+
+  .lp-collection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-collection-track {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .lp-collection-topband {
+    height: 42px;
+  }
+
+  .lp-collection-arrow {
+    display: none;
+  }
+
+  .lp-collection-info {
+    padding-right: 32px;
+  }
+
+  .lp-collection-title {
+    font-size: 14px;
+  }
+
+  .lp-collection-material,
+  .lp-collection-price {
+    font-size: 13px;
+  }
+
+  .lp-collection-card-cat .lp-collection-letters {
+    width: 45%;
+    top: 10%;
+  }
+
+  .lp-collection-card-blue .lp-collection-letters,
+  .lp-collection-card-green .lp-collection-letters,
+  .lp-collection-card-black .lp-collection-letters {
+    width: 72%;
+    bottom: 3%;
+  }
+}

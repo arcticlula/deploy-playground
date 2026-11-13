@@ -1,0 +1,25 @@
+---
+/**
+ * A legal page (privacy, returns, terms, disputes, consumer information).
+ * The text is the Markdown file src/content/legal/<language>/<doc>.md
+ */
+import { getEntry, render } from 'astro:content';
+import '../styles/sections/legal.css';
+import type { Lang, LegalDoc } from '../i18n/routes';
+
+interface Props {
+  doc: LegalDoc;
+  lang: Lang;
+}
+
+const { doc, lang } = Astro.props;
+const entry = await getEntry('legal', `${lang}/${doc}`);
+if (!entry) throw new Error(`Missing legal text: src/content/legal/${lang}/${doc}.md`);
+const { Content } = await render(entry);
+---
+
+<section class={`lp-legal lp-legal--${doc}`}>
+  <div class="lp-legal-inner">
+    <Content />
+  </div>
+</section>

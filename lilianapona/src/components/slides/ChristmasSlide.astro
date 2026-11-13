@@ -1,0 +1,81 @@
+---
+/**
+ * Christmas slide of the Products carousel, rebuilt from the client's "Blue_Rock.pdf" (page 2)
+ * and "Blue_Rock_Texto Natal.pdf": the Blue Rock box under a starry sky on the left, the Christmas
+ * message on the right. The poem is real text (its words are in src/data/carousel.ts); the
+ * hand-lettered parts are the designer's images.
+ * Styles: "Christmas slide" in src/styles/sections/carousel.css.
+ */
+import { Image } from 'astro:assets';
+import box from '../../assets/images/carousel/christmas/box.png';
+import headline from '../../assets/images/carousel/christmas/headline.png';
+import greeting from '../../assets/images/carousel/christmas/greeting.png';
+import slogan from '../../assets/images/home/handmade-just-for-you.png';
+import signature from '../../assets/images/carousel/blue-rock/lettering.png';
+import { christmasMessage } from '../../data/carousel';
+import type { Lang } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const message = christmasMessage[lang];
+---
+
+<div class="lp-split-panel lp-split-left lp-xmas-box">
+  <Image src={box} alt={message.photoAlt} widths={[480, 720, 960, 1200]} sizes="(max-width: 767px) 100vw, 45vw" loading="lazy" />
+  <Image
+    class="lp-xmas-headline"
+    src={headline}
+    alt={message.headlineAlt}
+    widths={[300, 600, 900, 1247]}
+    sizes="(max-width: 767px) 44vw, 20vw"
+    loading="lazy"
+  />
+  <Image
+    class="lp-xmas-slogan"
+    src={slogan}
+    alt={t.hero.taglineAlt}
+    widths={[400, 800, 1200, 1740]}
+    sizes="(max-width: 767px) 91vw, 41vw"
+    loading="lazy"
+  />
+</div>
+
+<div class="lp-split-panel lp-split-right lp-xmas-message">
+  <Image
+    class="lp-xmas-greeting"
+    src={greeting}
+    alt={message.greetingAlt}
+    widths={[300, 500, 700, 992]}
+    sizes="(max-width: 767px) 64vw, 25vw"
+    loading="lazy"
+  />
+  {/* The space before each <br> keeps the words apart where narrow screens hide the breaks. */}
+  <p class="lp-xmas-text">
+    {
+      message.lines.map((line, i) => (
+        <>
+          {i > 0 && (
+            <>
+              {' '}
+              <br />
+            </>
+          )}
+          {line}
+        </>
+      ))
+    }
+  </p>
+  <Image
+    class="lp-xmas-signature"
+    src={signature}
+    alt={message.signatureAlt}
+    widths={[200, 400, 600]}
+    sizes="(max-width: 767px) 34vw, 10vw"
+    loading="lazy"
+  />
+</div>

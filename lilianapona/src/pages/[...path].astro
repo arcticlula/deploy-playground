@@ -1,0 +1,66 @@
+---
+/**
+ * Every page of the site, in every language, comes out of this one file.
+ *
+ * The addresses are listed in src/i18n/routes.ts: this file turns each of them into a page
+ * and picks the view (src/views/) that draws it. To add a page: add its address to routes.ts,
+ * write a view, and add the pair to `views` below.
+ */
+import { products } from '../data/products';
+import { languages, legalDocs, productPath, routes, type LegalDoc, type Lang, type RouteKey } from '../i18n/routes';
+import AboutView from '../views/AboutView.astro';
+import CartView from '../views/CartView.astro';
+import CollectionsView from '../views/CollectionsView.astro';
+import ContactView from '../views/ContactView.astro';
+import HomeView from '../views/HomeView.astro';
+import LegalView from '../views/LegalView.astro';
+import ProductView from '../views/ProductView.astro';
+import ProductsView from '../views/ProductsView.astro';
+import WishlistView from '../views/WishlistView.astro';
+
+type Props = { lang: Lang } & ({ route: RouteKey } | { product: string });
+
+export function getStaticPaths() {
+  // "/sobre/" -> "sobre";  "/" -> undefined (the home page)
+  const param = (address: string) => address.replace(/^\/|\/$/g, '') || undefined;
+
+  return languages.flatMap((lang) => [
+    ...(Object.keys(routes) as RouteKey[]).map((route) => ({
+      params: { path: param(routes[route][lang]) },
+      props: { lang, route } satisfies Props,
+    })),
+    ...products.map((product) => ({
+      params: { path: param(productPath(product.slug, lang)) },
+      props: { lang, product: product.slug } satisfies Props,
+    })),
+  ]);
+}
+
+const props = Astro.props as Props;
+const { lang } = props;
+
+const views = {
+  home: HomeView,
+  about: AboutView,
+  products: ProductsView,
+  collections: CollectionsView,
+  contact: ContactView,
+  wishlist: WishlistView,
+  cart: CartView,
+} as const;
+
+const isLegal = (route: RouteKey): route is LegalDoc => (legalDocs as readonly string[]).includes(route);
+---
+
+{
+  'product' in props ? (
+    <ProductView lang={lang} product={props.product} />
+  ) : isLegal(props.route) ? (
+    <LegalView lang={lang} doc={props.route} />
+  ) : (
+    (() => {
+      const View = views[props.route as keyof typeof views];
+      return <View lang={lang} />;
+    })()
+  )
+}

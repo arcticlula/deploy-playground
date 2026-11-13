@@ -1,0 +1,101 @@
+---
+/** Site footer: about text, legal links, social links, newsletter form, copyright bar. */
+import { Image } from 'astro:assets';
+import '../styles/sections/footer.css';
+import Icon from './Icon.astro';
+import funding from '../assets/images/brand/funding-logos.png';
+import { site } from '../data/site';
+import { path, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="lp-footer-wrap">
+  <div class="lp-footer-main">
+    <div class="lp-footer-about">
+      <p set:html={t.footer.aboutHtml} />
+    </div>
+
+    <div class="lp-footer-links">
+      <h4>{t.footer.support}</h4>
+      <a href={path('privacy', lang)}>{t.footer.privacy}</a>
+      <a href={path('returns', lang)} set:html={t.footer.returnsHtml} />
+      <a href={path('terms', lang)}>{t.footer.terms}</a>
+      <a href={path('disputes', lang)}>{t.footer.disputes}</a>
+      <a href={path('consumer', lang)}>{t.footer.consumer}</a>
+      <a href={site.complaintsBook} rel="noopener">{t.footer.complaintsBook}</a>
+    </div>
+
+    <div class="lp-footer-social">
+      <h4>{t.footer.follow}</h4>
+
+      <a href={site.social.facebook} rel="noopener">
+        <Icon name="facebook" />
+        <span>Facebook</span>
+      </a>
+
+      <a href={site.social.instagram} rel="noopener">
+        <Icon name="instagram" />
+        <span>Instagram</span>
+      </a>
+    </div>
+
+    <div class="lp-footer-news" id="newsletter">
+      <h4>{t.footer.newsletterTitle}</h4>
+      <p>{t.footer.newsletterText}</p>
+
+      <form
+        class="lp-news-form"
+        action="/api/newsletter.php"
+        method="post"
+        data-ajax-form
+        data-ok={t.footer.newsletterOk}
+        data-error={t.footer.newsletterError}
+      >
+        <input type="hidden" name="lang" value={lang} />
+        {/* Trap for spam robots: people never see or fill this field. */}
+        <div class="lp-form-trap" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <div class="lp-news-field">
+          <input
+            type="email"
+            name="email"
+            placeholder={t.footer.emailPlaceholder}
+            aria-label={t.footer.emailPlaceholder}
+            autocomplete="email"
+            required
+          />
+          <button type="submit" aria-label={t.footer.subscribe}>
+            <span class="lp-submit-arrow"></span>
+          </button>
+        </div>
+
+        <div class="lp-news-check">
+          <input type="checkbox" id="lpNewsletterConsent" name="consent" value="1" required />
+          <label for="lpNewsletterConsent">{t.footer.consent}</label>
+        </div>
+
+        <div class="lp-news-message" data-form-message role="status" aria-live="polite" hidden></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="lp-footer-copy">
+    <div class="lp-footer-copy-text">
+      <span>© {year} {t.footer.copyright}</span>
+      <span class="lp-footer-credits">
+        {t.footer.design}: {site.credits.design} · {t.footer.development}: {site.credits.development}
+      </span>
+    </div>
+    <Image src={funding} alt={t.footer.fundingAlt} width={305} densities={[1, 2, 3]} />
+  </div>
+</footer>

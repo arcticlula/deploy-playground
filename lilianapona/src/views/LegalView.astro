@@ -1,0 +1,20 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import LegalText from '../components/LegalText.astro';
+import type { Lang, LegalDoc } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  doc: LegalDoc;
+}
+
+const { lang, doc } = Astro.props;
+const t = useTranslations(lang);
+const entry = await getEntry('legal', `${lang}/${doc}`);
+---
+
+<Base lang={lang} page={{ route: doc }} title={entry?.data.title ?? t.titles[doc]} description={entry?.data.description}>
+  <LegalText doc={doc} lang={lang} />
+</Base>

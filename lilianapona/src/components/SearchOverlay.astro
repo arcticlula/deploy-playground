@@ -1,0 +1,215 @@
+---
+/**
+ * Full-screen product search, opened by the magnifier in the header.
+ * It searches the catalogue in the browser: the list of products is written into the page below.
+ */
+import { getImage } from 'astro:assets';
+import '../styles/sections/search.css';
+import Icon from './Icon.astro';
+import { formatPrice, productImages, products } from '../data/products';
+import { productPath, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const index = await Promise.all(
+  products.map(async (product) => {
+    const text = product.text[lang];
+    const [photo] = productImages(product.slug);
+    const image = photo ? await getImage({ src: photo, width: 480 }) : null;
+    return {
+      name: product.name,
+      collection: product.collection,
+      url: productPath(product.slug, lang),
+      image: image?.src ?? '',
+      price: formatPrice(product.price) ?? t.product.priceOnRequest,
+      // Everything the search looks at, in both languages so "ring" and "anel" both work.
+      haystack: [
+        product.name,
+        product.collection,
+        ...product.keywords,
+        ...Object.values(product.text).flatMap((x) => [...x.cardLines, x.materialsLine, ...x.description]),
+      ].join(' '),
+    };
+  }),
+);
+
+const labels = {
+  resultOne: t.search.resultOne,
+  resultMany: t.search.resultMany,
+  emptyTitle: t.search.emptyTitle,
+  emptyText: t.search.emptyText,
+};
+---
+
+<div class="lp-search-overlay" id="lpSearchOverlay" aria-hidden="true">
+  <button type="button" class="lp-search-close" data-search-close aria-label={t.search.close}>×</button>
+
+  <div class="lp-search-panel" role="dialog" aria-modal="true" aria-label={t.search.dialogLabel}>
+    <p class="lp-search-kicker">{t.search.kicker}</p>
+    <h2 class="lp-search-title">{t.search.title}</h2>
+
+    <form class="lp-search-form" id="lpSearchForm" role="search" autocomplete="off">
+      <input
+        type="search"
+        name="lp-search"
+        id="lpSearchInput"
+        autocomplete="off"
+        placeholder={t.search.placeholder}
+        aria-label={t.search.submit}
+      />
+
+      <button type="submit" class="lp-search-submit" aria-label={t.search.submit}>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="10.8" cy="10.8" r="6.8"></circle>
+          <path d="M16 16l5 5"></path>
+        </svg>
+      </button>
+    </form>
+
+    <div class="lp-search-suggestions" aria-label={t.search.suggestionsLabel}>
+      {
+        t.search.suggestions.map((s) => (
+          <button type="button" data-search-term={s.term} data-search-label={s.label.toLowerCase()}>
+            {s.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="lp-live-search-status" id="lpSearchStatus" role="status" aria-live="polite"></div>
+    <div class="lp-live-search-results" id="lpSearchResults"></div>
+  </div>
+</div>
+
+<script type="application/json" id="lpSearchData" set:html={JSON.stringify({ index, labels })} />
+
+<script>
+  import { searchProducts, type SearchItem } from '../scripts/search';
+
+  interface SearchData {
+    index: SearchItem[];
+    labels: { resultOne: string; resultMany: string; emptyTitle: string; emptyText: string };
+  }
+
+  const overlay = document.getElementById('lpSearchOverlay');
+  const form = document.getElementById('lpSearchForm');
+  const input = document.getElementById('lpSearchInput') as HTMLInputElement | null;
+  const results = document.getElementById('lpSearchResults');
+  const status = document.getElementById('lpSearchStatus');
+  const dataEl = document.getElementById('lpSearchData');
+
+  if (overlay && form && input && results && status && dataEl) {
+    const { index, labels } = JSON.parse(dataEl.textContent || '{}') as SearchData;
+    let timer: number | undefined;
+    let opener: HTMLElement | null = null;
+
+    const el = (tag: string, className: string, text?: string) => {
+      const node = document.createElement(tag);
+      node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    };
+
+    function open(from: HTMLElement | null) {
+      opener = from;
+      overlay!.classList.add('is-open');
+      overlay!.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lp-no-scroll');
+      window.setTimeout(() => input!.focus(), 120);
+    }
+
+    function close() {
+      overlay!.classList.remove('is-open');
+      overlay!.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lp-no-scroll');
+      opener?.focus({ preventScroll: true });
+      opener = null;
+    }
+
+    function run(term: string) {
+      term = term.trim();
+      results!.replaceChildren();
+      status!.textContent = '';
+      if (term.length < 2) return;
+
+      const found = searchProducts(index, term);
+
+      if (found.length === 0) {
+        const empty = el('div', 'lp-live-search-empty');
+        empty.append(el('h3', '', labels.emptyTitle), el('p', '', labels.emptyText));
+        results!.append(empty);
+        return;
+      }
+
+      status!.textContent =
+        found.length === 1 ? labels.resultOne : labels.resultMany.replace('{n}', String(found.length));
+
+      const grid = el('div', 'lp-live-search-grid');
+      for (const item of found) {
+        const card = el('a', 'lp-live-search-card') as HTMLAnchorElement;
+        card.href = item.url;
+
+        const frame = el('span', 'lp-live-search-img');
+        if (item.image) {
+          const img = document.createElement('img');
+          img.src = item.image;
+          img.alt = item.name;
+          img.loading = 'lazy';
+          frame.append(img);
+        }
+
+        const info = el('span', 'lp-live-search-info');
+        if (item.collection) info.append(el('span', 'lp-live-search-cat', item.collection));
+        info.append(el('span', 'lp-live-search-title', item.name), el('span', 'lp-live-search-price', item.price));
+
+        card.append(frame, info);
+        grid.append(card);
+      }
+      results!.append(grid);
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-search-open]').forEach((button) =>
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        open(button);
+      }),
+    );
+
+    overlay.querySelectorAll('[data-search-close]').forEach((button) => button.addEventListener('click', close));
+
+    // A click on the white backdrop (not on the panel) closes the search.
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) close();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && overlay.classList.contains('is-open')) close();
+    });
+
+    input.addEventListener('input', () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => run(input.value), 260);
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      window.clearTimeout(timer);
+      run(input.value);
+    });
+
+    overlay.querySelectorAll<HTMLElement>('[data-search-term]').forEach((button) =>
+      button.addEventListener('click', () => {
+        input.value = button.dataset.searchLabel || button.textContent || '';
+        input.focus();
+        window.clearTimeout(timer);
+        run(button.dataset.searchTerm || input.value);
+      }),
+    );
+  }
+</script>

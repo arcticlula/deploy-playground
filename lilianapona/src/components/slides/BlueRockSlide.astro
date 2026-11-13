@@ -1,0 +1,54 @@
+---
+/**
+ * Blue Rock slide of the Products carousel, rebuilt from the client's "Blue_Rock.pdf" (page 1).
+ * Wide screens: ring photo left, model right, the "Blue Rock Ring" lettering across the middle.
+ * Phones (as in the client's "Matriz_Mobile"): model on top, ring underneath with the lettering in its top-left corner.
+ * Styles: "Blue Rock slide" in src/styles/sections/carousel.css.
+ */
+import { Image, getImage } from 'astro:assets';
+import ring from '../../assets/images/carousel/blue-rock/ring.png';
+import model from '../../assets/images/carousel/blue-rock/model.png';
+import modelWide from '../../assets/images/carousel/blue-rock/model-wide.png';
+import lettering from '../../assets/images/carousel/blue-rock/lettering.png';
+
+interface Props {
+  /** First slide of the carousel: load its photos straight away. */
+  eager?: boolean;
+}
+
+const { eager = false } = Astro.props;
+const loading = eager ? 'eager' : 'lazy';
+
+// Wide screens use the model photo with white space on her left, where the lettering ends;
+// phones use the tighter crop. Same photo, two framings.
+const wide = await getImage({ src: modelWide, widths: [480, 720, 960, 1200], format: 'webp' });
+const tight = await getImage({ src: model, widths: [480, 720, 885], format: 'webp' });
+---
+
+<div class="lp-split-panel lp-split-left lp-br-ring">
+  <Image src={ring} alt="" widths={[480, 720, 1029]} sizes="(max-width: 767px) 100vw, 50vw" loading={loading} priority={eager} />
+  <Image
+    class="lp-br-lettering"
+    src={lettering}
+    alt="Blue Rock Ring"
+    widths={[400, 700, 1000, 1361]}
+    sizes="(max-width: 767px) 49vw, 34vw"
+    loading={loading}
+  />
+</div>
+
+<div class="lp-split-panel lp-split-right lp-br-model">
+  <picture>
+    <source media="(max-width: 767px)" srcset={tight.srcSet.attribute} sizes="100vw" width={model.width} height={model.height} />
+    <img
+      src={wide.src}
+      srcset={wide.srcSet.attribute}
+      sizes="50vw"
+      alt=""
+      width={modelWide.width}
+      height={modelWide.height}
+      loading={loading}
+      decoding="async"
+    />
+  </picture>
+</div>

@@ -1,0 +1,306 @@
+/* About page: photo + text, and the mission / vision / values panel. */
+
+.lp-about {
+  position: relative;
+  width: 100%;
+  color: #C2B59B;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Soft grey band across the top, as on the other pages. */
+.lp-sobre-softbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.10);
+  pointer-events: none;
+}
+
+/* ================================
+   BLOCO PRINCIPAL
+================================ */
+
+.lp-about-main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  height: 615px;
+  overflow: visible !important;
+  background: #fff;
+}
+
+.lp-img {
+  position: relative;
+  height: 615px;
+  overflow: visible !important;
+  z-index: 2;
+}
+
+.lp-img .work {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.lp-img .thisone {
+  position: absolute;
+  z-index: 5;
+  left: 42%;
+  top: 7%;
+  width: 104%;
+  height: auto;
+  object-fit: contain;
+  opacity: 1 !important;
+  padding: 0;
+  transform: rotate(-1deg);
+  pointer-events: none;
+}
+
+/* ================================
+   TEXTO
+================================ */
+
+.lp-text {
+  padding: 72px 10% 45px 19.5%;
+  color: #C2B59B !important;
+  font-weight: 300;
+  max-width: 100%;
+}
+
+.lp-text .lp-text-kicker {
+  margin: 0 0 10px;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: #C2B59B !important;
+}
+
+.lp-text h1 {
+  margin: 0 0 16px;
+  max-width: 800px;
+  font-size: 25px;
+  line-height: 1.5;
+  font-weight: 300;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: #C2B59B !important;
+}
+
+.lp-text h1 strong {
+  font-weight: 700;
+  color: #C2B59B !important;
+}
+
+.lp-text p {
+  max-width: 780px;
+  margin: 0 0 15px;
+  font-size: 13.5px;
+  line-height: 1.28;
+  font-weight: 300;
+  letter-spacing: .01em;
+  color: #C2B59B !important;
+}
+
+.lp-text p strong {
+  font-weight: 700;
+  color: #B9AA8C !important;
+}
+
+.lp-signature {
+  margin-top: 24px;
+  color: #C2B59B !important;
+}
+
+.lp-signature strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: .02em;
+  color: #C2B59B !important;
+}
+
+.lp-signature span {
+  display: block;
+  margin-top: 4px;
+  font-size: 8px;
+  line-height: 1;
+  font-weight: 300;
+  color: #C2B59B !important;
+}
+
+/* ================================
+   SETAS
+================================ */
+
+.lp-next,
+.lp-back {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.lp-next {
+  position: absolute;
+  right: 44px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 38px;
+  height: 38px;
+  border-top: 3px solid #C2B59B;
+  border-right: 3px solid #C2B59B;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.lp-values {
+  display: none;
+  position: relative;
+  min-height: 610px;
+  padding: 72px 19% 80px;
+  text-align: center;
+  color: #C2B59B;
+  background: #fff;
+}
+
+.lp-values.active {
+  display: block;
+}
+
+.lp-values h2 {
+  font-size: 28px;
+  margin: 0 0 8px;
+  font-weight: 700;
+  color: #C2B59B !important;
+}
+
+.lp-values p {
+  font-size: 13px;
+  line-height: 1.35;
+  margin: 0 auto 28px;
+  max-width: 760px;
+  font-weight: 300;
+  color: #C2B59B !important;
+}
+
+.lp-back {
+  position: absolute;
+  left: 58px;
+  top: 45%;
+  width: 42px;
+  height: 42px;
+  border-left: 3px solid #C2B59B;
+  border-bottom: 3px solid #C2B59B;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 767px) {
+  .lp-text p {
+    font-size: 12.5px;
+    line-height: 1.38;
+    margin-bottom: 14px;
+  }
+
+  .lp-signature strong {
+    font-size: 17px;
+  }
+
+  .lp-signature span {
+    font-size: 8px;
+  }
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 767px) {
+
+  .lp-sobre-softbar {
+    height: 32px;
+  }
+
+  .lp-about-main {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: hidden !important;
+  }
+
+  .lp-img {
+    height: 420px;
+    overflow: hidden !important;
+  }
+
+  .lp-img .work {
+    object-position: left center;
+  }
+
+  .lp-img .thisone {
+    left: -2%;
+    top: 8%;
+    width: 112%;
+    opacity: 1 !important;
+  }
+
+  .lp-text {
+    padding: 42px 26px;
+  }
+
+  .lp-text .lp-text-kicker {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .lp-text h1 {
+    font-size: 19px;
+    line-height: 1.3;
+    margin-bottom: 18px;
+  }
+
+  .lp-text p {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+
+  .lp-signature {
+    margin-top: 26px;
+  }
+
+  .lp-signature strong {
+    font-size: 20px;
+  }
+
+  .lp-signature span {
+    font-size: 9px;
+  }
+
+  .lp-next {
+    display: none;
+  }
+
+  .lp-values {
+    display: block;
+    padding: 50px 26px;
+    min-height: auto;
+  }
+
+  .lp-back {
+    display: none;
+  }
+}

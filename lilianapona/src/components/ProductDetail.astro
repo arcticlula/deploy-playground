@@ -1,0 +1,146 @@
+---
+/** Product page: big photo, thumbnails, name, price, WhatsApp button and the accordions. */
+import { Image } from 'astro:assets';
+import '../styles/sections/product.css';
+import HeartButton from './HeartButton.astro';
+import { formatPrice, productImages, type Product } from '../data/products';
+import { site } from '../data/site';
+import { path, productPath, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  product: Product;
+  lang: Lang;
+}
+
+const { product, lang } = Astro.props;
+const t = useTranslations(lang);
+const text = product.text[lang];
+const images = productImages(product.slug);
+
+const pageUrl = new URL(productPath(product.slug, lang), Astro.site ?? site.url).href;
+const message = t.product.whatsappMessage.replace('{name}', product.name).replace('{url}', pageUrl);
+const whatsappUrl = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
+
+const accordions = [
+  { title: t.product.accordions.description, lines: text.description, description: true },
+  { title: t.product.accordions.materials, lines: text.materials },
+  { title: t.product.accordions.care, lines: text.care },
+  { title: t.product.accordions.size, lines: text.size },
+  { title: t.product.accordions.shipping, lines: text.shipping },
+  { title: t.product.accordions.contact, lines: text.contact },
+].filter((accordion) => accordion.lines.length > 0);
+---
+
+<div class="lp-product-page">
+  <div class="lp-single-layout">
+    <div class="lp-product-top-band"></div>
+
+    <section class="lp-main-image-wrap">
+      {
+        images.map((image, i) => (
+          <Image
+            class="lp-main-product-image"
+            src={image}
+            alt={i === 0 ? product.name : `${product.name} (${i + 1})`}
+            widths={[480, 720, 960, 1200]}
+            sizes="(max-width: 900px) 100vw, 44.5vw"
+            quality={85}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            priority={i === 0}
+            hidden={i > 0}
+            data-product-image={i}
+          />
+        ))
+      }
+
+      <div class="lp-floating-wishlist">
+        <HeartButton slug={product.slug} lang={lang} />
+      </div>
+    </section>
+
+    <section class="lp-product-thumbs" aria-label={t.product.photos}>
+      {
+        images.map((image, i) => (
+          <button
+            class:list={['lp-product-thumb', { 'is-active': i === 0 }]}
+            type="button"
+            data-product-thumb={i}
+            aria-label={t.product.photo.replace('{n}', String(i + 1))}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+          >
+            <Image src={image} alt="" width={236} height={236} fit="cover" loading="eager" />
+          </button>
+        ))
+      }
+    </section>
+
+    <section class="lp-product-summary">
+      <h1 class="lp-product-title">{product.name}</h1>
+
+      <div class="lp-product-materials">{text.materialsLine}</div>
+
+      <div class="lp-product-price">{formatPrice(product.price) ?? t.product.priceOnRequest}</div>
+
+      <div class="lp-side-wishlist">
+        <HeartButton slug={product.slug} lang={lang} />
+      </div>
+
+      <div class="lp-product-cart">
+        <a href={whatsappUrl} target="_blank" rel="noopener" class="lp-consulta-whatsapp">{t.product.askInfo}</a>
+      </div>
+
+      <div class="lp-product-accordions">
+        {
+          accordions.map((accordion) => (
+            <details class="lp-product-acc">
+              <summary>
+                <span>{accordion.title}</span>
+                <span class="lp-acc-icon" aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <div class:list={['lp-product-acc-content', { 'lp-product-acc-content--description': accordion.description }]}>
+                <p>
+                  {accordion.lines.map((line, i) => (
+                    <>
+                      {i > 0 && <br />}
+                      {line}
+                    </>
+                  ))}
+                </p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+
+      {/* Hallmarking law (Lei 98/2015): the consumer information should be easy to find next to each piece. */}
+      <p class="lp-product-legal">
+        <a href={path('consumer', lang)}>{t.product.consumerInfo}</a>
+      </p>
+    </section>
+  </div>
+</div>
+
+<script>
+  // Clicking a thumbnail shows that photo in the big frame.
+  const photos = document.querySelectorAll<HTMLImageElement>('[data-product-image]');
+  const thumbs = document.querySelectorAll<HTMLButtonElement>('[data-product-thumb]');
+
+  thumbs.forEach((thumb) =>
+    thumb.addEventListener('click', () => {
+      const chosen = thumb.dataset.productThumb;
+      photos.forEach((photo) => {
+        const on = photo.dataset.productImage === chosen;
+        if (on) photo.loading = 'eager';
+        photo.hidden = !on;
+      });
+      thumbs.forEach((other) => {
+        const on = other === thumb;
+        other.classList.toggle('is-active', on);
+        other.setAttribute('aria-pressed', String(on));
+      });
+    }),
+  );
+</script>

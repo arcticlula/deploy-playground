@@ -1,0 +1,217 @@
+/* Legal pages (privacy, returns, terms, disputes): one plain column of text. */
+
+.lp-legal {
+  background: var(--lp-page-bg);
+  padding: 48px 24px 72px;
+}
+
+.lp-legal-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  overflow-wrap: break-word;
+}
+
+/* Headings look like bold paragraphs, as on the original pages. */
+.lp-legal h1,
+.lp-legal h2,
+.lp-legal h3 {
+  margin: 0 0 1.5em;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.65;
+  letter-spacing: inherit;
+}
+
+.lp-legal a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lp-legal li > p {
+  margin: 0;
+}
+
+.lp-legal .lp-legal-note {
+  font-size: 14px;
+  font-style: italic;
+  color: #6d6d6d;
+}
+
+/* An image in a legal text (opens full size when clicked). */
+.lp-legal-figure {
+  margin: 0 0 1.5em;
+}
+
+.lp-legal-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lp-legal-figure a {
+  cursor: zoom-in;
+}
+
+/* Details still to be filled in before the site goes live. */
+.lp-legal mark {
+  background: #fff1b8;
+  color: #7a6a3a;
+  padding: 0 4px;
+}
+
+@media (max-width: 767px) {
+  .lp-legal {
+    padding: 32px 24px 56px;
+  }
+
+  .lp-legal ul,
+  .lp-legal ol {
+    padding-left: 24px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Consumer information (/informacao-ao-consumidor/): the look of the client's
+   "Elementos_Legais.pdf" (beige title bar, beige text, capital headings, blue links),
+   as wide as the other legal pages on desktop.
+--------------------------------------------------------------------------- */
+.lp-legal--consumer {
+  --lp-consumer-blue: #1c75bc;
+  background: #fff;
+  padding: 56px 24px 88px;
+}
+
+.lp-legal--consumer .lp-legal-inner {
+  color: var(--lp-gold);
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: 0.005em;
+}
+
+.lp-legal--consumer p {
+  margin: 0 0 22px;
+}
+
+/* "INFORMAÇÃO AO CONSUMIDOR": white capitals on a beige bar */
+.lp-legal--consumer h1 {
+  margin: 0 0 18px;
+  padding: 8px 14px 6px;
+  background: var(--lp-gold);
+  color: #fff;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* "CONTRASTARIA E MARCAÇÃO" and its short introduction */
+.lp-legal--consumer h2 {
+  margin: 0 0 6px;
+  color: var(--lp-gold);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.lp-legal--consumer h2 + p {
+  margin-bottom: 52px;
+}
+
+/* Section titles: capitals, the size of the text */
+.lp-legal--consumer h3 {
+  margin: 36px 0 18px;
+  color: var(--lp-gold);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.lp-legal--consumer ul {
+  margin: 0 0 22px;
+  padding: 0 0 0 34px;
+  list-style: none;
+}
+
+.lp-legal--consumer li {
+  position: relative;
+}
+
+.lp-legal--consumer li::before {
+  content: "•";
+  position: absolute;
+  left: -14px;
+}
+
+.lp-legal--consumer strong {
+  font-weight: 700;
+}
+
+.lp-legal--consumer a {
+  color: var(--lp-consumer-blue);
+  text-decoration: none;
+}
+
+.lp-legal--consumer a:hover {
+  text-decoration: underline;
+}
+
+.lp-legal--consumer .lp-legal-note {
+  margin-bottom: 36px;
+  color: var(--lp-gold);
+}
+
+.lp-legal--consumer .lp-legal-figure {
+  margin: 32px 0 0;
+}
+
+.lp-legal--consumer .lp-legal-figure figcaption {
+  margin-top: 14px;
+  color: var(--lp-gold);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* Closing beige bar with the activity licence number, like the bar at the end of the PDF */
+.lp-legal--consumer .lp-consumer-bar {
+  margin: 32px 0 0;
+  padding: 9px 14px 7px;
+  background: var(--lp-gold);
+  color: #fff;
+  line-height: 1.5;
+}
+
+@media (max-width: 767px) {
+  .lp-legal--consumer {
+    padding: 36px 24px 64px;
+  }
+
+  .lp-legal--consumer .lp-legal-inner {
+    font-size: 16px;
+  }
+
+  .lp-legal--consumer h1 {
+    font-size: 15px;
+  }
+
+  .lp-legal--consumer h2 {
+    font-size: 21px;
+  }
+
+  .lp-legal--consumer h2 + p {
+    margin-bottom: 40px;
+  }
+
+  .lp-legal--consumer h3 {
+    font-size: 16px;
+  }
+
+  .lp-legal--consumer ul {
+    padding-left: 26px;
+  }
+}

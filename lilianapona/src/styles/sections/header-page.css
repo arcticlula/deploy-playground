@@ -1,0 +1,202 @@
+/* Header of every page except the home page: burger left, logo centre, icons right. */
+
+.lp-page-header {
+  width: 100%;
+  height: 145px;
+  margin-top: var(--lp-header-gap);
+  background: #fff;
+  position: relative;
+  z-index: 999;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.lp-page-burger {
+  position: absolute;
+  left: 24px;
+  bottom: 70px;
+  width: 22px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.lp-page-burger span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: #000;
+}
+
+.lp-page-logo {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: 142px;
+  height: auto;
+}
+
+.lp-page-actions {
+  position: absolute;
+  right: 32px;
+  bottom: 70px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lp-page-lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 6px;
+}
+
+.lp-page-lang a {
+  font-size: 13px;
+  line-height: 1;
+  color: #000;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.lp-page-lang a.lp-active {
+  font-weight: 700;
+}
+
+.lp-page-actions a,
+.lp-page-actions button {
+  color: #000;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lp-page-actions button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.lp-page-actions svg {
+  stroke: #000;
+  fill: none;
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+}
+
+.lp-page-search svg {
+  width: 19px;
+  height: 19px;
+}
+
+.lp-page-account svg,
+.lp-page-wishlist svg {
+  width: 22px;
+  height: 22px;
+}
+
+.lp-page-cart {
+  position: relative;
+}
+
+.lp-page-cart svg {
+  width: 25px;
+  height: 25px;
+}
+
+.lp-page-cart span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -38%);
+  font-size: 8px;
+  line-height: 1;
+  color: #000;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .lp-page-header {
+    height: 78px;
+  }
+
+  .lp-page-burger {
+    left: 16px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+
+  .lp-page-logo {
+    width: 72px;
+    max-width: 52px;
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  .lp-page-actions {
+    right: 14px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    gap: 10px;
+  }
+
+  .lp-page-lang {
+    gap: 4px;
+    margin-right: 2px;
+  }
+
+  .lp-page-lang a {
+    font-size: 11px;
+    letter-spacing: -0.5px;
+  }
+
+  .lp-page-search svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .lp-page-account svg,
+  .lp-page-wishlist svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .lp-page-cart svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (max-width: 390px) {
+  .lp-page-logo {
+    max-width: 46px;
+  }
+}
+
+@media (max-width: 380px) {
+  .lp-page-logo {
+    width: 64px;
+  }
+
+  .lp-page-actions {
+    gap: 8px;
+    right: 10px;
+  }
+
+  .lp-page-lang a {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Wishlist from '../components/Wishlist.astro';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base lang={lang} page={{ route: 'wishlist' }} title={t.titles.wishlist} noindex>
+  <Wishlist lang={lang} />
+</Base>

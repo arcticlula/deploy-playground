@@ -1,0 +1,34 @@
+---
+/** Header of the home page: no logo (the hero shows it), icons bottom right. */
+import '../styles/sections/header-home.css';
+import HeaderActions from './HeaderActions.astro';
+import type { Lang, PageRef } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  page?: PageRef;
+}
+
+const { lang, page } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<header class="lp-home-header">
+  <button
+    type="button"
+    class="lp-home-burger"
+    data-menu-open
+    aria-controls="lpMenuPanel"
+    aria-expanded="false"
+    aria-label={t.header.openMenu}
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="lp-home-header-inner">
+    <HeaderActions variant="home" lang={lang} page={page} />
+  </div>
+</header>

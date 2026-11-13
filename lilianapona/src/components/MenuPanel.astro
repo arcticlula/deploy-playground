@@ -1,0 +1,57 @@
+---
+/** Side menu opened by the burger button. Present on every page. */
+import '../styles/sections/menu.css';
+import { mainNav, path, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<nav class="lp-menu-panel" id="lpMenuPanel" aria-label={t.header.menu}>
+  <button type="button" class="lp-menu-close" data-menu-close aria-label={t.header.closeMenu}>×</button>
+  {mainNav.map((key) => <a href={path(key, lang)}>{t.nav[key]}</a>)}
+</nav>
+
+<script>
+  const panel = document.getElementById('lpMenuPanel');
+  const openers = document.querySelectorAll<HTMLElement>('[data-menu-open]');
+  let opener: HTMLElement | null = null;
+
+  function setOpen(open: boolean) {
+    if (!panel) return;
+    panel.classList.toggle('open', open);
+    openers.forEach((el) => el.setAttribute('aria-expanded', String(open)));
+    if (open) {
+      panel.querySelector<HTMLElement>('[data-menu-close]')?.focus({ preventScroll: true });
+    } else {
+      opener?.focus({ preventScroll: true });
+      opener = null;
+    }
+  }
+
+  openers.forEach((el) =>
+    el.addEventListener('click', () => {
+      opener = el;
+      setOpen(true);
+    }),
+  );
+
+  panel?.querySelector('[data-menu-close]')?.addEventListener('click', () => setOpen(false));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel?.classList.contains('open')) setOpen(false);
+  });
+
+  // A click anywhere outside the open panel closes it.
+  document.addEventListener('click', (event) => {
+    if (!panel?.classList.contains('open')) return;
+    const target = event.target as Node;
+    if (panel.contains(target) || [...openers].some((el) => el.contains(target))) return;
+    setOpen(false);
+  });
+</script>

@@ -1,0 +1,177 @@
+.lp-final-cta {
+  width: 100%;
+  min-height: 640px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.lp-final-cta-inner {
+  width: 100%;
+  min-height: 640px;
+  position: relative;
+}
+
+.lp-final-cta-left {
+  position: absolute;
+  left: 16.2%;
+  top: 14%;
+  z-index: 4;
+  max-width: 620px;
+  color: #c1b294;
+}
+
+.lp-final-cta-left p {
+  margin: 0 0 52px;
+  font-size: 22px;
+  line-height: 1.22;
+  font-weight: 400;
+  letter-spacing: .015em;
+}
+
+.lp-final-cta-left h2 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 400;
+  color: #c1b294;
+}
+
+.lp-final-cta-left a {
+  display: inline-block;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 400;
+  color: #c1b294;
+  text-decoration: none;
+  margin-bottom: 0;
+}
+
+.lp-final-cta-left a:hover {
+  opacity: .72;
+}
+
+.lp-final-cta-logo {
+  display: block;
+  width: 265px;
+  height: auto;
+  opacity: .95;
+  margin-left: -28px;
+  margin-top: 68px;
+}
+
+.lp-final-cta-box {
+  position: absolute;
+  right: 6.5%;
+  top: 13%;
+  width: 43%;
+  max-width: 720px;
+  z-index: 2;
+}
+
+@media (max-width: 1024px) {
+
+  .lp-final-cta,
+  .lp-final-cta-inner {
+    min-height: 560px;
+  }
+
+  /* 44% keeps the text clear of the gift box, which starts at 53% of the width. */
+  .lp-final-cta-left {
+    left: 8%;
+    max-width: 44%;
+  }
+
+  .lp-final-cta-left p {
+    font-size: 20px;
+  }
+
+  .lp-final-cta-left h2 {
+    font-size: 30px;
+  }
+
+  .lp-final-cta-left a {
+    font-size: 23px;
+  }
+
+  .lp-final-cta-logo {
+    width: 180px;
+    margin-left: -18px;
+    margin-top: 58px;
+    margin-bottom: 16px;
+  }
+
+  .lp-final-cta-box {
+    right: 3%;
+    width: 44%;
+  }
+}
+
+@media (max-width: 900px) {
+  .lp-final-cta-left p {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+
+  .lp-final-cta-left h2 {
+    font-size: 27px;
+  }
+
+  .lp-final-cta-left a {
+    font-size: 21px;
+  }
+
+  .lp-final-cta-logo {
+    width: 160px;
+    margin-top: 44px;
+  }
+}
+
+@media (max-width: 767px) {
+  .lp-final-cta {
+    min-height: auto;
+    padding: 56px 24px 44px;
+  }
+
+  .lp-final-cta-inner {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lp-final-cta-left {
+    position: relative;
+    left: auto;
+    top: auto;
+    max-width: 100%;
+  }
+
+  .lp-final-cta-left p {
+    font-size: 18px;
+    line-height: 1.22;
+    margin-bottom: 38px;
+  }
+
+  .lp-final-cta-left h2 {
+    font-size: 26px;
+  }
+
+  .lp-final-cta-left a {
+    font-size: 21px;
+  }
+
+  .lp-final-cta-logo {
+    width: 180px;
+    margin-left: -2px;
+    margin-top: 42px;
+    margin-bottom: 34px;
+  }
+
+  .lp-final-cta-box {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 100%;
+    max-width: none;
+  }
+}

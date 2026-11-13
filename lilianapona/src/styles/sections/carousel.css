@@ -1,0 +1,377 @@
+.lp-split-carousel {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+.lp-split-topband {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  height: 42px;
+  background: rgba(0,0,0,.10);
+  pointer-events: none;
+}
+
+.lp-split-track {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  transition: transform .7s ease, height .5s ease;
+  will-change: transform;
+}
+
+.lp-split-slide {
+  min-width: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background: #fff;
+}
+
+.lp-split-panel {
+  width: 100%;
+  height: clamp(560px, 46.43vw, 900px);
+  overflow: hidden;
+  background: #fff;
+}
+
+.lp-split-panel img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* CLEOPATRA — desce ligeiramente para não tocar na barra */
+.lp-split-slide--cleopatra .lp-split-left img,
+.lp-split-slide--cleopatra .lp-split-right img {
+  object-position: center calc(50% + 18px) !important;
+}
+
+.lp-split-right img {
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* SUCCULENTUS */
+.lp-split-slide--succulentus .lp-split-left img,
+.lp-split-slide--succulentus .lp-split-right img {
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+/* ROSEMARY */
+.lp-split-slide--rosemary .lp-split-left img,
+.lp-split-slide--rosemary .lp-split-right img {
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+/* SETAS */
+.lp-split-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  width: 76px;
+  height: 76px;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #c2b59b;
+  cursor: pointer;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lp-split-arrow svg {
+  width: 62px;
+  height: 62px;
+  stroke-width: 1;
+}
+
+.lp-split-prev { left: 24px; }
+.lp-split-next { right: 24px; }
+
+.lp-split-arrow:hover {
+  color: #a99c82;
+}
+
+.lp-split-arrow:focus,
+.lp-split-arrow:active {
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .lp-split-topband {
+    height: 38px;
+  }
+
+  .lp-split-panel {
+    height: 520px;
+  }
+
+  .lp-split-arrow {
+    width: 64px;
+    height: 64px;
+  }
+
+  .lp-split-arrow svg {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .lp-split-topband {
+    height: 34px;
+  }
+
+  .lp-split-slide {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-split-panel {
+    height: auto;
+  }
+
+  .lp-split-panel img,
+  .lp-split-slide--cleopatra .lp-split-left img,
+  .lp-split-slide--cleopatra .lp-split-right img {
+    width: 100%;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+
+  .lp-split-arrow {
+    width: 54px;
+    height: 54px;
+  }
+
+  .lp-split-arrow svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .lp-split-prev { left: 6px; }
+  .lp-split-next { right: 6px; }
+}
+
+/* ---------------------------------------------------------------------------
+   Blue Rock slide (src/components/slides/BlueRockSlide.astro).
+   Measured on the client's flat "BR_Img_1.png": ring photo 55%, model 45% (her hair starts
+   at about 64% of the width); the lettering runs from 39.7% to 73.6% of the slide width,
+   its top at 35.1% of the height. It lives in the ring panel (55% of the slide) and spills
+   over the model photo, so: left 72.2%, width 61.6% of that panel.
+--------------------------------------------------------------------------- */
+.lp-split-slide--blue-rock {
+  grid-template-columns: 55% 45%;
+}
+
+.lp-br-ring {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+}
+
+.lp-br-model {
+  position: relative;
+  z-index: 1;
+}
+
+.lp-br-model picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lp-split-panel .lp-br-lettering {
+  position: absolute;
+  left: 72.2%;
+  top: 35.1%;
+  width: 61.6%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Christmas slide (src/components/slides/ChristmasSlide.astro).
+   Proportions from the client's flat "BR_Img_2.png": photo 45%, message 55%.
+--------------------------------------------------------------------------- */
+.lp-split-slide--christmas {
+  grid-template-columns: 45% 55%;
+}
+
+.lp-xmas-box {
+  position: relative;
+  background: #12308f;
+}
+
+.lp-split-panel .lp-xmas-headline,
+.lp-split-panel .lp-xmas-slogan {
+  position: absolute;
+  left: 50%;
+  height: auto;
+  object-fit: contain;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.lp-split-panel .lp-xmas-headline {
+  top: 6.8%;
+  width: 43.6%;
+}
+
+.lp-split-panel .lp-xmas-slogan {
+  bottom: 3.7%;
+  width: 91%;
+}
+
+/* Side padding keeps the text clear of the carousel's right arrow. */
+.lp-xmas-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 80px 16px;
+  text-align: center;
+}
+
+.lp-split-panel .lp-xmas-greeting {
+  width: 46%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* One line of the poem per line, as in the PDF. The longest line is about 39.5 em wide, so the
+   size is capped to what fits the panel (55vw minus the 80px side paddings, with a little spare). */
+.lp-xmas-text {
+  margin: clamp(10px, 1.4vw, 26px) 0 0;
+  color: var(--lp-gold-dark);
+  font-size: clamp(12px, min(1.05vw, calc((55vw - 170px) / 39.5)), 19px);
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+.lp-split-panel .lp-xmas-signature {
+  width: 17%;
+  height: auto;
+  margin-top: clamp(10px, 1.4vw, 26px);
+  object-fit: contain;
+}
+
+/* Below 1180px the poem's longest lines no longer fit at a readable size, so it flows as a
+   paragraph (the forced line breaks are dropped) instead of breaking twice per line. */
+@media (max-width: 1180px) {
+  .lp-xmas-text br {
+    display: none;
+  }
+
+  .lp-xmas-text {
+    font-size: 12px;
+    text-wrap: pretty;
+  }
+}
+
+@media (max-width: 1024px) {
+  .lp-xmas-message {
+    padding: 44px 76px 14px 22px;
+  }
+
+  .lp-split-panel .lp-xmas-greeting {
+    width: 42%;
+  }
+}
+
+@media (max-width: 900px) {
+  .lp-xmas-message {
+    padding: 40px 74px 12px 14px;
+  }
+
+  .lp-split-panel .lp-xmas-greeting {
+    width: 46%;
+  }
+
+  .lp-xmas-text {
+    font-size: 12.5px;
+    line-height: 1.34;
+  }
+
+  .lp-split-panel .lp-xmas-signature {
+    width: 22%;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Arrows sit halfway down the first photo of every slide (slides differ in height on phones). */
+  .lp-split-arrow {
+    top: 50vw;
+  }
+
+  /* Blue Rock: model first, then the ring with the lettering in its top-left corner. */
+  .lp-split-slide--blue-rock {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-br-model {
+    order: -1;
+  }
+
+  .lp-br-model picture {
+    height: auto;
+  }
+
+  .lp-split-panel .lp-br-lettering {
+    left: 2.9%;
+    top: 2%;
+    width: 50.2%;
+  }
+
+  /* Christmas: photo, then the message underneath. */
+  .lp-split-slide--christmas {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-split-panel .lp-xmas-headline {
+    width: 46%;
+  }
+
+  .lp-split-panel .lp-xmas-slogan {
+    bottom: 4%;
+    width: 88%;
+  }
+
+  .lp-xmas-message {
+    padding: 34px 18px 32px;
+  }
+
+  .lp-split-panel .lp-xmas-greeting {
+    width: 66%;
+  }
+
+  .lp-xmas-text {
+    margin-top: 18px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  .lp-split-panel .lp-xmas-signature {
+    width: 34%;
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,37 @@
+---
+/**
+ * "Page not found". Apache serves this file for any address that does not exist (see public/.htaccess).
+ * It is written in Portuguese and switches its text to English when the address starts with /en/.
+ */
+import Base from '../layouts/Base.astro';
+import '../styles/sections/not-found.css';
+import { path } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+const pt = useTranslations('pt').notFound;
+const en = useTranslations('en').notFound;
+---
+
+<Base lang="pt" title={pt.title} noindex>
+  <section class="lp-not-found">
+    <div lang="pt-PT" data-not-found="pt">
+      <h1>{pt.title}</h1>
+      <p>{pt.text}</p>
+      <a href={path('home', 'pt')}>{pt.back}</a>
+    </div>
+
+    <div lang="en-GB" data-not-found="en" hidden>
+      <h1>{en.title}</h1>
+      <p>{en.text}</p>
+      <a href={path('home', 'en')}>{en.back}</a>
+    </div>
+  </section>
+
+  <script is:inline>
+    if (location.pathname.startsWith('/en/')) {
+      document.querySelector('[data-not-found="pt"]').hidden = true;
+      document.querySelector('[data-not-found="en"]').hidden = false;
+      document.documentElement.lang = 'en-GB';
+    }
+  </script>
+</Base>

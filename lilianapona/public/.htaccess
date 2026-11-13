@@ -1,0 +1,70 @@
+# Liliana Pona Jewellery: static site built with Astro (the files of site/dist/ go in public_html/).
+#
+# The host is cPanel with nginx in front of an Apache server that reads this file.
+# HTTPS is already enforced by the host: do not add an HTTPS redirect here, it can loop behind the proxy.
+
+Options -Indexes
+DirectoryIndex index.html index.php
+ErrorDocument 404 /404.html
+
+# ---------------------------------------------------------------------------
+# Old WordPress addresses
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Shop pages that do not exist on the new site.
+  RewriteRule ^minha-conta(/.*)?$ / [R=301,L]
+  RewriteRule ^finalizar-compra(/.*)?$ /carrinho/ [R=301,L]
+  RewriteRule ^comprar-produto(/.*)?$ /colecoes/ [R=301,L]
+  RewriteRule ^categoria-produto(/.*)?$ /colecoes/ [R=301,L]
+  RewriteRule ^loja(/.*)?$ /colecoes/ [R=301,L]
+  RewriteRule ^produto/?$ /colecoes/ [R=301,L]
+
+  # WordPress search, shop and short links on the home page (/?s=anel, /?add-to-cart=373, /?p=15 ...).
+  RewriteCond %{QUERY_STRING} (^|&)(s|post_type|add-to-cart|add_to_wishlist|product_cat|page_id|p)= [NC]
+  RewriteRule ^$ / [R=301,L,QSD]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+# Pages: always check for a new version. Files in /_astro/ never change (their names
+# carry a fingerprint): they have their own .htaccess that caches them for a year.
+# ---------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 1 hour"
+  ExpiresByType text/plain "access plus 1 hour"
+  ExpiresByType application/json "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  # Security headers
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript text/javascript application/json image/svg+xml
+</IfModule>
+
+AddType image/webp .webp
+AddType image/avif .avif
+AddType font/woff .woff
+AddType font/woff2 .woff2
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php74” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php74___lsphp .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

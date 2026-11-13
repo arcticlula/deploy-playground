@@ -1,0 +1,80 @@
+---
+/** About page: workshop photo with lettering + brand text, then mission / vision / values. */
+import { Image } from 'astro:assets';
+import '../styles/sections/about.css';
+import workshop from '../assets/images/about/workshop.png';
+import lettering from '../assets/images/about/this-one-is-mine.png';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang).about;
+---
+
+<div class="lp-about">
+  <div class="lp-sobre-softbar" aria-hidden="true"></div>
+
+  <section class="lp-about-main" id="aboutIntro">
+    <div class="lp-img">
+      <Image class="work" src={workshop} alt={t.photoAlt} quality={88} priority />
+      <Image
+        class="thisone"
+        src={lettering}
+        alt={t.letteringAlt}
+        widths={[450, 900, 1350]}
+        sizes="(max-width: 767px) 112vw, 32vw"
+        loading="eager"
+      />
+    </div>
+
+    <div class="lp-text">
+      <p class="lp-text-kicker">{t.kicker}</p>
+      <h1 set:html={t.headingHtml} />
+
+      {t.paragraphsHtml.map((paragraph) => <p set:html={paragraph} />)}
+
+      <div class="lp-signature">
+        <strong>{t.signatureName}</strong>
+        <span>{t.signatureRole}</span>
+      </div>
+    </div>
+
+    <button type="button" class="lp-next" data-about-show="values" aria-label={t.next}></button>
+  </section>
+
+  <section class="lp-values" id="aboutValues">
+    <button type="button" class="lp-back" data-about-show="intro" aria-label={t.back}></button>
+
+    {
+      t.values.map((value) => (
+        <>
+          <h2>{value.title}</h2>
+          <p>{value.text}</p>
+        </>
+      ))
+    }
+  </section>
+</div>
+
+<script>
+  // Desktop: the arrow swaps the brand text for the mission / vision / values panel and back.
+  // On phones both are simply shown one after the other (see about.css).
+  const intro = document.getElementById('aboutIntro');
+  const values = document.getElementById('aboutValues');
+
+  document.querySelectorAll<HTMLElement>('[data-about-show]').forEach((button) =>
+    button.addEventListener('click', () => {
+      if (!intro || !values) return;
+      const showValues = button.dataset.aboutShow === 'values';
+      intro.style.display = showValues ? 'none' : '';
+      values.classList.toggle('active', showValues);
+      if (showValues) window.scrollTo({ top: 0, behavior: 'smooth' });
+      const target = showValues ? values.querySelector<HTMLElement>('.lp-back') : intro.querySelector<HTMLElement>('.lp-next');
+      target?.focus({ preventScroll: true });
+    }),
+  );
+</script>

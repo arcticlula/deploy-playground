@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import CartEmpty from '../components/CartEmpty.astro';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base lang={lang} page={{ route: 'cart' }} title={t.titles.cart} noindex>
+  <CartEmpty lang={lang} />
+</Base>

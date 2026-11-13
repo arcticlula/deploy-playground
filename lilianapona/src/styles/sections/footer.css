@@ -1,0 +1,394 @@
+.lp-footer-wrap {
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+}
+
+/* ================================
+   RODAPÉ PRINCIPAL
+================================ */
+
+.lp-footer-main {
+  background: #C2B59B;
+  color: #fff;
+  padding: 30px 3.7% 52px;
+  display: grid;
+  grid-template-columns: 1.35fr .75fr .85fr 1.9fr;
+  gap: 54px;
+  align-items: start;
+}
+
+.lp-footer-main h4 {
+  margin: 0 0 26px;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.lp-footer-main p,
+.lp-footer-main a,
+.lp-footer-main label {
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.18;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.lp-footer-about p {
+  max-width: 315px;
+  margin: 0;
+}
+
+.lp-footer-links a {
+  display: block;
+  margin-bottom: 22px;
+  transition: opacity .25s ease;
+}
+
+.lp-footer-links a:hover,
+.lp-footer-social a:hover {
+  opacity: .75;
+}
+
+/* ================================
+   REDES SOCIAIS
+================================ */
+
+.lp-footer-social a {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 23px;
+  transition: opacity .25s ease;
+}
+
+.lp-footer-social svg {
+  width: 26px;
+  height: 26px;
+  fill: #fff;
+  display: block;
+  flex: 0 0 auto;
+}
+
+/* ================================
+   NEWSLETTER
+================================ */
+
+.lp-footer-news p {
+  margin: 0 0 66px;
+  max-width: 520px;
+}
+
+.lp-news-form {
+  width: 100%;
+  max-width: 520px;
+}
+
+.lp-news-field {
+  width: 100%;
+  height: 76px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.lp-news-field input {
+  flex: 1;
+  height: 76px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 34px;
+  font-size: 18px;
+  color: #C2B59B;
+  background: #fff !important;
+  font-weight: 300;
+  letter-spacing: .03em;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0 !important;
+}
+
+.lp-news-field input::placeholder {
+  color: #C2B59B;
+  opacity: .95;
+}
+
+.lp-news-field input:focus,
+.lp-news-field input:active,
+.lp-news-field input:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: #fff !important;
+}
+
+/* Botão completamente limpo para não herdar estilos do tema */
+.lp-news-field button,
+.lp-news-field button[type="submit"] {
+  all: unset !important;
+  width: 76px !important;
+  height: 76px !important;
+  min-width: 76px !important;
+  background: #fff !important;
+  cursor: pointer !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.lp-news-field button:hover,
+.lp-news-field button:focus,
+.lp-news-field button:active {
+  all: unset !important;
+  width: 76px !important;
+  height: 76px !important;
+  min-width: 76px !important;
+  background: #fff !important;
+  cursor: pointer !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Seta de envio */
+.lp-submit-arrow {
+  width: 18px;
+  height: 18px;
+  display: block;
+  border-top: 2px solid #C2B59B;
+  border-right: 2px solid #C2B59B;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+/* Consentimento */
+.lp-news-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.lp-news-check input {
+  width: 14px;
+  height: 14px;
+  margin: 2px 0 0;
+  accent-color: #C2B59B;
+  flex: 0 0 auto;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.lp-news-check input:focus,
+.lp-news-check input:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.lp-news-check label {
+  line-height: 1.25;
+}
+
+.lp-news-message {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 300;
+  color: #fff;
+}
+
+/* ================================
+   COPYRIGHT + LOGOS
+================================ */
+
+.lp-footer-copy {
+  background: #fff;
+  color: #000;
+  padding: 16px 42px 15px 8px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.lp-footer-copy span {
+  color: #000;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 300;
+}
+
+.lp-footer-copy img {
+  width: 305px;
+  max-width: 38vw;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.lp-footer-copy-text {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.lp-footer-copy .lp-footer-credits {
+  color: #6b6b6b;
+}
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 1024px) {
+  .lp-footer-main {
+    grid-template-columns: 1.2fr .8fr .8fr 1.5fr;
+    gap: 32px;
+    padding: 28px 4% 46px;
+  }
+
+  .lp-footer-main h4 {
+    font-size: 14px;
+  }
+
+  .lp-footer-main p,
+  .lp-footer-main a,
+  .lp-footer-main label {
+    font-size: 13px;
+  }
+
+  .lp-footer-news p {
+    margin-bottom: 40px;
+  }
+
+  .lp-news-field {
+    height: 64px;
+  }
+
+  .lp-news-field input {
+    height: 64px;
+    font-size: 15px;
+    padding: 0 24px;
+  }
+
+  .lp-news-field button,
+  .lp-news-field button[type="submit"],
+  .lp-news-field button:hover,
+  .lp-news-field button:focus,
+  .lp-news-field button:active {
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+  }
+
+  .lp-submit-arrow {
+    width: 15px;
+    height: 15px;
+  }
+
+  .lp-footer-copy img {
+    width: 270px;
+  }
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 767px) {
+  .lp-footer-main {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 36px 28px 42px;
+  }
+
+  .lp-footer-main h4 {
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+
+  .lp-footer-main p,
+  .lp-footer-main a,
+  .lp-footer-main label {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .lp-footer-about p {
+    max-width: 100%;
+  }
+
+  .lp-footer-links a {
+    margin-bottom: 13px;
+  }
+
+  .lp-footer-social a {
+    margin-bottom: 16px;
+  }
+
+  .lp-footer-news p {
+    margin-bottom: 24px;
+  }
+
+  .lp-news-field {
+    height: 56px;
+  }
+
+  .lp-news-field input {
+    height: 56px;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  .lp-news-field button,
+  .lp-news-field button[type="submit"],
+  .lp-news-field button:hover,
+  .lp-news-field button:focus,
+  .lp-news-field button:active {
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+  }
+
+  .lp-submit-arrow {
+    width: 13px;
+    height: 13px;
+    border-top-width: 1.5px;
+    border-right-width: 1.5px;
+  }
+
+  .lp-footer-copy {
+    padding: 18px 28px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .lp-footer-copy span {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .lp-footer-copy img {
+    width: 265px;
+    max-width: 100%;
+  }
+}

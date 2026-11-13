@@ -1,0 +1,36 @@
+---
+/**
+ * Cart page. The site is a catalogue for now (prices on request), so the cart is always empty.
+ * When the shop goes live this is the component to extend.
+ */
+import '../styles/sections/cart.css';
+import { path, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="lp-cart-drawer-page">
+  <div class="lp-cart-topband"></div>
+
+  <div class="lp-cart-visual"></div>
+
+  <div class="lp-cart-panel">
+    <a href={path('home', lang)} class="lp-cart-close" aria-label={t.cart.close}>×</a>
+
+    <h1 class="lp-cart-title">
+      <span>{t.cart.title}</span>
+      <strong>0</strong>
+    </h1>
+
+    <div class="lp-cart-empty">
+      <p>{t.cart.empty}</p>
+      <a href={path('collections', lang)}>{t.cart.continue}</a>
+    </div>
+  </div>
+</section>

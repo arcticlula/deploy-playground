@@ -1,0 +1,29 @@
+---
+/**
+ * The site's line icons, drawn inline so they can be styled with CSS.
+ * Usage: <Icon name="search" />
+ */
+interface Props {
+  name: keyof typeof icons;
+}
+
+const icons = {
+  search: '<circle cx="10.5" cy="10.5" r="6.2"></circle><path d="M15.2 15.2L20.5 20.5"></path>',
+  account:
+    '<circle cx="12" cy="6.9" r="2.9"></circle><path d="M5.3 21c.4-4.1 3-6.3 6.7-6.3s6.3 2.2 6.7 6.3"></path>',
+  wishlist:
+    '<path d="M12 19.2S5.4 15.1 5.4 9.7c0-2.1 1.5-3.6 3.5-3.6 1.4 0 2.5.8 3.1 1.9.6-1.1 1.7-1.9 3.1-1.9 2 0 3.5 1.5 3.5 3.6 0 5.4-6.6 9.5-6.6 9.5z"></path>',
+  cart: '<path d="M6.8 8.4h10.4L18.1 21H5.9L6.8 8.4z"></path><path d="M9.4 8.3c0-2.3.9-3.7 2.6-3.7s2.6 1.4 2.6 3.7"></path>',
+  /* Heart used on product cards and product pages (outline; filled when saved). */
+  heart:
+    '<path d="M20.8 4.6c-1.7-1.6-4.4-1.5-6 .3L12 7.8 9.2 4.9c-1.6-1.8-4.3-1.9-6-.3-1.8 1.7-1.9 4.5-.2 6.3l9 9.1 9-9.1c1.7-1.8 1.6-4.6-.2-6.3z"></path>',
+  facebook:
+    '<path d="M14 8.5h2.2V5.1c-.4-.1-1.7-.2-3.1-.2-3.1 0-5.2 1.9-5.2 5.4v3H4.5V17h3.4v7h4.1v-7h3.4l.5-3.7H12v-2.6c0-1.1.3-2.2 2-2.2z"/>',
+  instagram:
+    '<path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9z"/><path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><path d="M17.5 6.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>',
+} as const;
+
+const { name } = Astro.props;
+---
+
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" set:html={icons[name]} />

@@ -1,0 +1,92 @@
+/* Wishlist page: same cards as the Collections page, under a title in the style of the cart. */
+
+.lp-wishlist-page {
+  min-height: 520px;
+  padding-top: 86px;
+  padding-bottom: 64px;
+}
+
+.lp-wishlist-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 0 0 30px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #1d1d1d;
+  letter-spacing: .01em;
+}
+
+.lp-wishlist-title strong {
+  width: 31px;
+  height: 31px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.lp-wishlist-empty {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 18px;
+}
+
+.lp-wishlist-empty p {
+  margin: 0;
+  font-size: 17px;
+  color: #222;
+}
+
+.lp-wishlist-empty .lp-wishlist-hint {
+  margin-top: -10px;
+  font-size: 14px;
+  color: #6d6d6d;
+}
+
+.lp-wishlist-empty a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  height: 36px;
+  padding: 0 18px;
+  background: #c2b59b;
+  color: #222;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.lp-wishlist-empty a:hover {
+  background: var(--lp-gold-dark);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .lp-wishlist-page {
+    min-height: 420px;
+    padding-top: 70px;
+    padding-bottom: 48px;
+  }
+
+  .lp-wishlist-title {
+    font-size: 21px;
+    margin-bottom: 24px;
+  }
+
+  .lp-wishlist-title strong {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import About from '../components/About.astro';
+import type { Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base lang={lang} page={{ route: 'about' }} title={t.titles.about} description={t.about.values[0].text}>
+  <About lang={lang} />
+</Base>

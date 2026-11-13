@@ -1,0 +1,164 @@
+/* Home page hero: model photo, vertical menu, logo and tagline. */
+
+/*
+ * Desktop and tablet: the box has the photo's own proportions (1701 x 768), so the whole photo shows
+ * and the logo and tagline, placed in % of the box, land on the same spot of the photo at every width.
+ * Positions measured on the client's mock-up "Home page.png".
+ */
+.lp-hero-wrap {
+  width: 100%;
+  aspect-ratio: 1701 / 768;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+.lp-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.lp-hero-bg img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.lp-hero-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 34px;
+  width: 100%;
+  background: rgba(194, 181, 155, 0.16);
+  z-index: 2;
+}
+
+.lp-hero-nav {
+  position: absolute;
+  z-index: 5;
+  left: 34px;
+  top: 67px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.lp-hero-nav a {
+  font-size: 13px;
+  line-height: 1;
+  color: #222;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.lp-hero-brand {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+/* The image files have a transparent margin: these boxes put the drawn letters where the mock-up has them
+   (logo letters from 18.1% to 38.8% across, 28.2% to 68% down; tagline letters from 18.1% to 82% across). */
+.lp-hero-logo {
+  position: absolute;
+  left: 15%;
+  top: 24.9%;
+  width: 25.9%;
+  height: auto;
+}
+
+.lp-hero-tagline {
+  position: absolute;
+  left: 13.9%;
+  top: 75.4%;
+  width: 72.3%;
+  height: auto;
+}
+
+@media (max-width: 1024px) {
+  .lp-hero-nav {
+    left: 26px;
+    top: 58px;
+    gap: 21px;
+  }
+
+  .lp-hero-nav a {
+    font-size: 11px;
+  }
+}
+
+/* Tablet portrait: the photo is short, so the menu tightens to fit above the bottom edge. */
+@media (max-width: 900px) {
+  .lp-hero-bg::before {
+    height: 26px;
+  }
+
+  .lp-hero-nav {
+    left: 22px;
+    top: 44px;
+    gap: 16px;
+  }
+
+  .lp-hero-nav a {
+    font-size: 10px;
+  }
+}
+
+/*
+ * Phones: photo cropped to the model (3:4), then the logo and tagline on white underneath.
+ */
+@media (max-width: 767px) {
+  .lp-hero-wrap {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lp-hero-bg {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+  }
+
+  .lp-hero-bg img {
+    /* keeps the face and the necklace in the middle of the frame */
+    object-position: 89% top;
+  }
+
+  .lp-hero-bg::before {
+    height: 18px;
+  }
+
+  .lp-hero-nav {
+    display: none;
+  }
+
+  .lp-hero-brand {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 16px 34px;
+    background: #fff;
+  }
+
+  .lp-hero-logo {
+    position: static;
+    width: 190px;
+  }
+
+  .lp-hero-tagline {
+    position: static;
+    width: min(100%, 360px);
+    margin-top: 14px;
+  }
+}
