@@ -5,7 +5,6 @@ description: "Assay office and hallmarking: products, the finenesses we sell, ch
 
 <!--
   Translation of src/content/legal/pt/consumer.md, same layout (the client's "Elementos_Legais.pdf").
-  Highlighted values (<mark>) are still to be confirmed before the site goes live.
 -->
 
 # Consumer information
@@ -45,7 +44,7 @@ Under articles 63 and 64 of Law no. 98/2015 of 18 August (RJOC), the daily price
 
 ### Hallmarks and activity licence
 
-We provide the official table of assay office marks issued by INCM, as well as our activity licence number, as required by law.
+We provide the official table of assay office marks issued by INCM, as well as our Activity Licence number&nbsp;- Site&nbsp;T10953.0, as required by law.
 
 [contrastaria.pt/en/consumer-information](https://contrastaria.pt/en/consumer-information/)
 
@@ -62,4 +61,4 @@ We provide the official table of assay office marks issued by INCM, as well as o
 Tax number (NIF) 252287088 · Based in Vila Nova de Gaia, Portugal  
 [geral@lilianaponajewellery.pt](mailto:geral@lilianaponajewellery.pt) · [(+351) 913 820 352](tel:+351913820352)
 
-<p class="lp-consumer-bar">Activity licence issued by INCM: no. <mark>to be confirmed</mark></p>
+<p class="lp-consumer-bar">Activity licence issued by INCM: no.&nbsp;T10953.0</p>

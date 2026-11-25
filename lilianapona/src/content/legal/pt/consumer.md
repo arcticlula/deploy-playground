@@ -7,7 +7,8 @@ description: "Contrastaria e marcação: produtos, toques que vendemos, verifica
   Content of the client's "Elementos_Legais.pdf" (pages 2 and 3), in the site's formal register;
   the seller is Liliana Tavares Pereira Pona, as in the terms and the privacy policy.
   The look follows the PDF: .lp-legal--consumer in src/styles/sections/legal.css.
-  Highlighted values (<mark>) are still to be confirmed before the site goes live.
+  "Marcas de contraste e título de atividade" uses the client's corrected text (Elementos_Legais.pdf
+  of 2026-11-24): activity title "Site T10953.0".
 -->
 
 # Informação ao consumidor
@@ -45,7 +46,7 @@ Ao abrigo dos artigos 63.º e 64.º da Lei n.º 98/2015, de 18 de agosto (RJOC),
 
 ### Marcas de contraste e título de atividade
 
-Disponibilizamos o quadro das marcas da contrastaria de modelo oficial, emitido pela INCM, assim como o nosso número de título de atividade, conforme a lei exige.
+Disponibilizamos o quadro das marcas da contrastaria de modelo oficial, emitido pela INCM, assim como o nosso número de Título de Atividade&nbsp;- Site&nbsp;T10953.0, conforme a lei exige.
 
 [contrastaria.pt/informacao-consumidor](https://contrastaria.pt/informacao-consumidor/)
 
@@ -62,4 +63,4 @@ Disponibilizamos o quadro das marcas da contrastaria de modelo oficial, emitido 
 NIF 252287088 · Sede em Vila Nova de Gaia  
 [geral@lilianaponajewellery.pt](mailto:geral@lilianaponajewellery.pt) · [(+351) 913 820 352](tel:+351913820352)
 
-<p class="lp-consumer-bar">Título de atividade emitido pela INCM: n.º <mark>a confirmar</mark></p>
+<p class="lp-consumer-bar">Título de atividade emitido pela INCM: n.º&nbsp;T10953.0</p>
