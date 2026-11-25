@@ -42,6 +42,8 @@ If you have any doubt about the authenticity of a hallmark, you can ask the Assa
 
 Under articles 63 and 64 of Law no. 98/2015 of 18 August (RJOC), the daily prices of gold, silver, platinum and palladium can be consulted on the [Banco de Portugal](https://www.bportugal.pt/) website and at [bullion-rates.com](https://www.bullion-rates.com/).
 
+INCM explains how to work out the price of the metal from these quotations at [contrastaria.pt/en/metal-quotation](https://contrastaria.pt/en/metal-quotation/).
+
 ### Hallmarks and activity licence
 
 We provide the official table of assay office marks issued by INCM, as well as our Activity Licence number&nbsp;- Site&nbsp;T10953.0, as required by law.

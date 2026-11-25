@@ -254,6 +254,19 @@
   color: #6b6b6b;
 }
 
+.lp-footer-copy .lp-footer-operator {
+  color: #000;
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.lp-footer-copy .lp-footer-operator:hover,
+.lp-footer-copy .lp-footer-operator:focus-visible {
+  text-decoration: underline;
+}
+
 /* ================================
    TABLET
 ================================ */
@@ -382,7 +395,8 @@
     gap: 16px;
   }
 
-  .lp-footer-copy span {
+  .lp-footer-copy span,
+  .lp-footer-copy .lp-footer-operator {
     font-size: 11px;
     line-height: 1.3;
   }

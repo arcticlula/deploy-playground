@@ -92,6 +92,10 @@ const year = new Date().getFullYear();
   <div class="lp-footer-copy">
     <div class="lp-footer-copy-text">
       <span>© {year} {t.footer.copyright}</span>
+      {/* Seller identity + INCM activity title, required on the website by Lei 98/2015 art. 64.º. */}
+      <a class="lp-footer-operator" href={path('consumer', lang)}>
+        {site.operator.name} · {t.footer.nif}&nbsp;{site.operator.nif} · {t.footer.activityTitle}&nbsp;{site.operator.activityTitle}
+      </a>
       <span class="lp-footer-credits">
         {t.footer.design}: {site.credits.design} · {t.footer.development}: {site.credits.development}
       </span>

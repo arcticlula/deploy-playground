@@ -21,6 +21,16 @@ export const site = {
     instagram: 'https://www.instagram.com/lilianaponajewellery/',
   },
 
+  /**
+   * The seller's legal identity, shown in the footer on every page (Lei 98/2015 art. 64.º n.º 2 e):
+   * name, tax number and INCM activity title). The consumer page (src/content/legal/…/consumer.md) repeats it.
+   */
+  operator: {
+    name: 'Liliana Tavares Pereira Pona',
+    nif: '252287088',
+    activityTitle: 'T10953.0',
+  },
+
   /** Portuguese online complaints book: a legally required link. */
   complaintsBook: 'https://www.livroreclamacoes.pt/Inicio/',
 

@@ -45,4 +45,6 @@ E-mail: centroarbitragem.sras@gov-madeira.pt
 9\. Centro de Informação, Mediação e Provedoria de Seguros  
 www.cimpas.pt
 
-Alternativamente pode consultar o Portal do Consumidor, em www.consumidor.pt, ou a Plataforma Europeia de Resolução de Litígios em Linha, em http://ec.europa.eu/consumers/odr.
+<!-- The EU Online Dispute Resolution platform closed on 20 July 2025 (Regulation (EU) 2024/3228), so its link was removed; www.consumidor.pt no longer exists, the Portal do Consumidor is now consumidor.gov.pt. -->
+
+Alternativamente pode consultar o Portal do Consumidor, em [www.consumidor.gov.pt](https://www.consumidor.gov.pt/).

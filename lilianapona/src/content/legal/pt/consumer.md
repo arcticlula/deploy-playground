@@ -44,6 +44,8 @@ Se tiver dúvidas sobre a autenticidade de uma marca de contraste, pode pedir a 
 
 Ao abrigo dos artigos 63.º e 64.º da Lei n.º 98/2015, de 18 de agosto (RJOC), as cotações diárias do ouro, da prata, da platina e do paládio podem ser consultadas no site do [Banco de Portugal](https://www.bportugal.pt/) e em [bullion-rates.com](https://www.bullion-rates.com/).
 
+A INCM explica como calcular o preço do metal a partir destas cotações em [contrastaria.pt/cotacao-metais](https://contrastaria.pt/cotacao-metais/).
+
 ### Marcas de contraste e título de atividade
 
 Disponibilizamos o quadro das marcas da contrastaria de modelo oficial, emitido pela INCM, assim como o nosso número de Título de Atividade&nbsp;- Site&nbsp;T10953.0, conforme a lei exige.
