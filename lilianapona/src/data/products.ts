@@ -65,7 +65,7 @@ export const products: Product[] = [
     text: {
       pt: {
         cardLines: ['Prata/Prata banhada a Ouro'],
-        materialsLine: 'Prata/Prata banhada a Ouro',
+        materialsLine: 'Prata/ Prata Dourada/ Ouro',
         description: [
           'O céu de uma noite eterna. Com um design exclusivo, inspirado numa noite muito especial.',
           'Único, cada anel é trabalhado individualmente, o que faz com que seja irrepetível. Cada peça nasce com a sua própria textura, forma e carácter, tal como a pedra única moldada pela natureza. A força do contraste entre a prata dourada e a pedra lápis-lázuli confere-lhe uma presença poderosa e expressiva, tornando-a uma peça pensada para quem procura autenticidade, impacto e uma jóia verdadeiramente singular. Perfeito para dar um toque de elegância e sofisticação a qualquer look.',
@@ -96,7 +96,7 @@ export const products: Product[] = [
       },
       en: {
         cardLines: ['Silver/Gold-plated silver'],
-        materialsLine: 'Silver/Gold-plated silver',
+        materialsLine: 'Silver/ Gold-plated silver/ Gold',
         description: [
           'The sky of an eternal night. An exclusive design, inspired by a very special night.',
           'Each ring is worked individually, which makes it one of a kind. Every piece is born with its own texture, shape and character, like a unique stone shaped by nature. The strong contrast between the gilded silver and the lapis lazuli stone gives it a powerful, expressive presence, making it a piece for those who seek authenticity, impact and a truly singular jewel. Perfect for adding a touch of elegance and sophistication to any look.',
@@ -137,7 +137,7 @@ export const products: Product[] = [
     text: {
       pt: {
         cardLines: ['(Botões-de-Punho)', 'Prata/Prata banhada a Ouro'],
-        materialsLine: 'Prata/Prata banhada a Ouro',
+        materialsLine: 'Prata/ Prata Dourada/ Ouro',
         description: [
           'Realce o seu estilo com os nossos Botões-de-Punho ousados e desafiantes em dourado. Este deslumbrante conjunto apresenta um design exclusivo, inspirado no gato, perfeitos para dar um toque de elegância e sofisticação a qualquer look. Fabricado artesanalmente com mestria no Porto, Portugal.',
           'Compre já!',
@@ -163,7 +163,7 @@ export const products: Product[] = [
       },
       en: {
         cardLines: ['(Cufflinks)', 'Silver/Gold-plated silver'],
-        materialsLine: 'Silver/Gold-plated silver',
+        materialsLine: 'Silver/ Gold-plated silver/ Gold',
         description: [
           'Elevate your style with our bold, daring gold-tone cufflinks. This stunning set features an exclusive design inspired by the cat, perfect for adding a touch of elegance and sophistication to any look. Handcrafted with mastery in Porto, Portugal.',
           'Buy now!',
@@ -199,7 +199,7 @@ export const products: Product[] = [
     text: {
       pt: {
         cardLines: ['Prata/Prata banhada a Ouro'],
-        materialsLine: 'Prata/Prata banhada a Ouro',
+        materialsLine: 'Prata/ Prata Dourada/ Ouro',
         description: [
           'Realce o seu estilo com este anel ousado e diferenciado em dourado. Com um design exclusivo, inspirado na força da natureza. Absolutamente único, cada anel é uma peça irrepetível nas suas formas orgânicas e as suas pedras vibrantes de cor turquesa.',
           'Para quem procura autenticidade, impacto e arte. Perfeito para dar um toque de elegância e sofisticação a qualquer look.',
@@ -229,7 +229,7 @@ export const products: Product[] = [
       },
       en: {
         cardLines: ['Silver/Gold-plated silver'],
-        materialsLine: 'Silver/Gold-plated silver',
+        materialsLine: 'Silver/ Gold-plated silver/ Gold',
         description: [
           'Elevate your style with this bold, distinctive gold-tone ring. An exclusive design inspired by the force of nature. Absolutely unique, each ring is a one-of-a-kind piece, with its organic shapes and vibrant turquoise-coloured stones.',
           'For those who seek authenticity, impact and art. Perfect for adding a touch of elegance and sophistication to any look.',
@@ -269,7 +269,7 @@ export const products: Product[] = [
     text: {
       pt: {
         cardLines: ['Prata/Prata banhada a Ouro'],
-        materialsLine: 'Prata/Prata banhada a Ouro',
+        materialsLine: 'Prata/ Prata Dourada/ Ouro',
         description: [
           'Realce o seu estilo com o nosso anel ousado e diferenciado em dourado. Com um design exclusivo, inspirado na força da natureza.',
           'Único, cada anel é trabalhado individualmente, o que faz com que seja irrepetível. Cada peça nasce com a sua própria textura, forma e carácter, tal como uma rocha única moldada pela natureza. A força do contraste entre o metal dourado e a pedra negra confere-lhe uma presença poderosa e expressiva, tornando-a uma peça pensada para quem procura autenticidade, impacto e uma jóia verdadeiramente singular. Perfeito para dar um toque de elegância e sofisticação a qualquer look.',
@@ -300,7 +300,7 @@ export const products: Product[] = [
       },
       en: {
         cardLines: ['Silver/Gold-plated silver'],
-        materialsLine: 'Silver/Gold-plated silver',
+        materialsLine: 'Silver/ Gold-plated silver/ Gold',
         description: [
           'Elevate your style with our bold, distinctive gold-tone ring. An exclusive design inspired by the force of nature.',
           'Each ring is worked individually, which makes it one of a kind. Every piece is born with its own texture, shape and character, like a unique rock shaped by nature. The strong contrast between the golden metal and the black stone gives it a powerful, expressive presence, making it a piece for those who seek authenticity, impact and a truly singular jewel. Perfect for adding a touch of elegance and sophistication to any look.',
